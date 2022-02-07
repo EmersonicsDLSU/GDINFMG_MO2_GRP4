@@ -145,7 +145,7 @@ void AHttpService::LoginResponse(FHttpRequestPtr Request, FHttpResponsePtr Respo
 
     //UE_LOG some tests to make sure our code is working.
     UE_LOG(LogTemp, Warning, TEXT("%s"), *Response->GetContentAsString());
-    UE_LOG(LogTemp, Warning, TEXT("Id is: %d"), LoginResponse.responseData.id);
-    UE_LOG(LogTemp, Warning, TEXT("Name is: %s"), *LoginResponse.responseData.name);
-    UE_LOG(LogTemp, Warning, TEXT("Score is: %d"), LoginResponse.responseData.score);
+    UE_LOG(LogTemp, Warning, TEXT("Id is: %d"), LoginResponse.data.id);
+    UE_LOG(LogTemp, Warning, TEXT("Name is: %s"), *LoginResponse.data.name);
+    UE_LOG(LogTemp, Warning, TEXT("Score is: %d"), LoginResponse.data.score);
 }

@@ -16,10 +16,11 @@ struct FRequest_Login {
 USTRUCT()
 struct Fdata {
     GENERATED_BODY()
-
+    
     UPROPERTY() int id;
     UPROPERTY() FString name;
     UPROPERTY() int score;
+    UPROPERTY() FString hash;
     Fdata() {}
 };
 
@@ -31,7 +32,8 @@ struct FResponse_Login {
     UPROPERTY() FString name;
     UPROPERTY() FString hash;
     */
-    Fdata responseData;
+
+     UPROPERTY() Fdata data;
 
     FResponse_Login() {}
 };
