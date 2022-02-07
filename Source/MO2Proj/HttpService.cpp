@@ -67,14 +67,14 @@ void AHttpService::SetAuthorizationHash(FString Hash, TSharedRef& Request) {
 
 
 
-template 
-void AHttpService::GetJsonStringFromStruct(FRequest_Login FilledStruct, FString& StringOutput) {
-    FJsonObjectConverter::UStructToJsonObjectString(FRequest_Login::StaticStruct(), &FilledStruct, StringOutput, 0, 0);
+template <typename K>
+void AHttpService::GetJsonStringFromStruct(K FilledStruct, FString& StringOutput) {
+    FJsonObjectConverter::UStructToJsonObjectString(K::StaticStruct(), &FilledStruct, StringOutput, 0, 0);
 }
 
-template 
-void AHttpService::GetStructFromJsonString(FHttpResponsePtr Response, FResponse_Login& StructOutput) {
-    FResponse_Login StructData;
+template <typename T>
+void AHttpService::GetStructFromJsonString(FHttpResponsePtr Response, T& StructOutput) {
+    T StructData;
     FString JsonString = Response->GetContentAsString();
     FJsonObjectConverter::JsonObjectStringToUStruct(JsonString, &StructOutput, 0, 0);
 }

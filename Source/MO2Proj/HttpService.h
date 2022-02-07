@@ -8,10 +8,11 @@
 #include "Json.h"
 #include "JsonUtilities.h"
 #include "JsonSerialization.h"
+#include "Templates/SharedPointer.h"
 #include "HttpService.generated.h"
 
 UCLASS(Blueprintable, hideCategories = (Rendering, Replication, Input, Actor, "Actor Tick"))
-class _API AHttpService : public AActor
+class MO2PROJ_API AHttpService : public AActor
 {
     GENERATED_BODY()
 private:
@@ -30,10 +31,10 @@ private:
 
     bool ResponseIsValid(FHttpResponsePtr Response, bool bWasSuccessful);
 
-    template 
-    void GetJsonStringFromStruct(StructType FilledStruct, FString& StringOutput);
-    template 
-    void GetStructFromJsonString(FHttpResponsePtr Response, StructType& StructOutput);
+    template <typename K>
+    void GetJsonStringFromStruct(K FilledStruct, FString& StringOutput);
+    template <typename T>
+    void GetStructFromJsonString(FHttpResponsePtr Response, T& StructOutput);
 
 protected:
     virtual void BeginPlay() override;
