@@ -106,11 +106,17 @@ void AHttpService::GetStructFromJsonString(FHttpResponsePtr Response, T& StructO
 
 void AHttpService::GetPlayer(int ind)
 {
-    TSharedRef<IHttpRequest> Request = GetRequest("User/:id");
+    FString sample = "User/";
+    sample.Append(FString::FromInt(ind));
+    
+    UE_LOG(LogTemp, Warning, TEXT("RequestType is: %s"), *sample);
+    TSharedRef<IHttpRequest> Request = GetRequest(sample);
     //Setting the method to be executed when the response returns ( or times out / fails )
     Request->OnProcessRequestComplete().BindUObject(this, &AHttpService::LoginResponse);
     //And finally actually Sending the request.
     Send(Request);
+    
+    UE_LOG(LogTemp, Warning, TEXT("RequestType is: %s"), *Request->GetVerb()); 
 }
 
 void AHttpService::Login(FRequest_Login LoginCredentials) {
@@ -138,6 +144,8 @@ void AHttpService::LoginResponse(FHttpRequestPtr Request, FHttpResponsePtr Respo
     GetStructFromJsonString(Response, LoginResponse);
 
     //UE_LOG some tests to make sure our code is working.
-    UE_LOG(LogTemp, Warning, TEXT("Id is: %d"), LoginResponse.id);
-    UE_LOG(LogTemp, Warning, TEXT("Name is: %s"), *LoginResponse.name);
+    UE_LOG(LogTemp, Warning, TEXT("%s"), *Response->GetContentAsString());
+    UE_LOG(LogTemp, Warning, TEXT("Id is: %d"), LoginResponse.responseData.id);
+    UE_LOG(LogTemp, Warning, TEXT("Name is: %s"), *LoginResponse.responseData.name);
+    UE_LOG(LogTemp, Warning, TEXT("Score is: %d"), LoginResponse.responseData.score);
 }

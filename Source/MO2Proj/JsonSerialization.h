@@ -14,11 +14,24 @@ struct FRequest_Login {
 };
 
 USTRUCT()
+struct Fdata {
+    GENERATED_BODY()
+
+    UPROPERTY() int id;
+    UPROPERTY() FString name;
+    UPROPERTY() int score;
+    Fdata() {}
+};
+
+USTRUCT()
 struct FResponse_Login {
     GENERATED_BODY()
+        /*
     UPROPERTY() int id;
     UPROPERTY() FString name;
     UPROPERTY() FString hash;
+    */
+    Fdata responseData;
 
     FResponse_Login() {}
 };
