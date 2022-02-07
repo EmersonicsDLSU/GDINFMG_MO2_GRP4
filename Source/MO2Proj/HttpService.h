@@ -18,7 +18,7 @@ class MO2PROJ_API AHttpService : public AActor
     GENERATED_BODY()
 private:
     FHttpModule* Http;
-    FString ApiBaseUrl = "http://localhost:5000/api/";
+    FString ApiBaseUrl = "http://localhost:8800/api/";
 
     FString AuthorizationHeader = TEXT("Authorization");
     void SetAuthorizationHash(FString Hash, TSharedRef<IHttpRequest>& Request);
@@ -43,6 +43,7 @@ protected:
 public:
     AHttpService();
 
+    void GetPlayer(int ind);
     void Login(FRequest_Login LoginCredentials);
     void LoginResponse(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful);
 };
