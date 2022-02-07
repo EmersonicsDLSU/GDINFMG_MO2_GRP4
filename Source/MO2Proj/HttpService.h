@@ -11,6 +11,7 @@
 #include "Templates/SharedPointer.h"
 #include "HttpService.generated.h"
 
+
 UCLASS(Blueprintable, hideCategories = (Rendering, Replication, Input, Actor, "Actor Tick"))
 class MO2PROJ_API AHttpService : public AActor
 {
@@ -20,14 +21,14 @@ private:
     FString ApiBaseUrl = "http://localhost:5000/api/";
 
     FString AuthorizationHeader = TEXT("Authorization");
-    void SetAuthorizationHash(FString Hash, TSharedRef& Request);
+    void SetAuthorizationHash(FString Hash, TSharedRef<IHttpRequest>& Request);
 
-    TSharedRef RequestWithRoute(FString Subroute);
-    void SetRequestHeaders(TSharedRef& Request);
+    TSharedRef<IHttpRequest> RequestWithRoute(FString Subroute);
+    void SetRequestHeaders(TSharedRef<IHttpRequest>& Request);
 
-    TSharedRef GetRequest(FString Subroute);
-    TSharedRef PostRequest(FString Subroute, FString ContentJsonString);
-    void Send(TSharedRef& Request);
+    TSharedRef<IHttpRequest> GetRequest(FString Subroute);
+    TSharedRef<IHttpRequest> PostRequest(FString Subroute, FString ContentJsonString);
+    void Send(TSharedRef<IHttpRequest>& Request);
 
     bool ResponseIsValid(FHttpResponsePtr Response, bool bWasSuccessful);
 

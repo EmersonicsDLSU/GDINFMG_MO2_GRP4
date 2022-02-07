@@ -19,33 +19,33 @@ void AHttpService::BeginPlay() {
     //Login(LoginCredentials);
 }
 
-TSharedRef AHttpService::RequestWithRoute(FString Subroute) {
-    TSharedRef Request = Http->CreateRequest();
+TSharedRef<IHttpRequest> AHttpService::RequestWithRoute(FString Subroute) {
+    auto Request = Http->CreateRequest();
     Request->SetURL(ApiBaseUrl + Subroute);
-    SetRequestHeaders(Request);
-    return Request;
+    SetRequestHeaders((TSharedRef<IHttpRequest>&)Request);
+    return (TSharedRef<IHttpRequest>&)Request;
 }
 
-void AHttpService::SetRequestHeaders(TSharedRef& Request) {
+void AHttpService::SetRequestHeaders(TSharedRef<IHttpRequest>& Request) {
     Request->SetHeader(TEXT("User-Agent"), TEXT("X-UnrealEngine-Agent"));
     Request->SetHeader(TEXT("Content-Type"), TEXT("application/json"));
     Request->SetHeader(TEXT("Accepts"), TEXT("application/json"));
 }
 
-TSharedRef AHttpService::GetRequest(FString Subroute) {
-    TSharedRef Request = RequestWithRoute(Subroute);
+TSharedRef<IHttpRequest> AHttpService::GetRequest(FString Subroute) {
+    TSharedRef<IHttpRequest> Request = RequestWithRoute(Subroute);
     Request->SetVerb("GET");
     return Request;
 }
 
-TSharedRef AHttpService::PostRequest(FString Subroute, FString ContentJsonString) {
-    TSharedRef Request = RequestWithRoute(Subroute);
+TSharedRef<IHttpRequest> AHttpService::PostRequest(FString Subroute, FString ContentJsonString) {
+    TSharedRef<IHttpRequest> Request = RequestWithRoute(Subroute);
     Request->SetVerb("POST");
     Request->SetContentAsString(ContentJsonString);
     return Request;
 }
 
-void AHttpService::Send(TSharedRef& Request) {
+void AHttpService::Send(TSharedRef<IHttpRequest>& Request) {
     Request->ProcessRequest();
 }
 
@@ -57,7 +57,7 @@ bool AHttpService::ResponseIsValid(FHttpResponsePtr Response, bool bWasSuccessfu
     else 
     { UE_LOG(LogTemp, Warning, TEXT("Http Response returned error code: %d"), Response->GetResponseCode()); return false; } }
 
-void AHttpService::SetAuthorizationHash(FString Hash, TSharedRef& Request) {
+void AHttpService::SetAuthorizationHash(FString Hash, TSharedRef<IHttpRequest>& Request) {
     Request->SetHeader(AuthorizationHeader, Hash);
 }
 
@@ -87,7 +87,7 @@ void AHttpService::Login(FRequest_Login LoginCredentials) {
     FString ContentJsonString;
     GetJsonStringFromStruct(LoginCredentials, ContentJsonString);
 
-    TSharedRef Request = PostRequest("user/login", ContentJsonString);
+    TSharedRef<IHttpRequest> Request = PostRequest("user/login", ContentJsonString);
     Request->OnProcessRequestComplete().BindUObject(this, &AHttpService::LoginResponse);
     Send(Request);
 }
