@@ -16,7 +16,7 @@ void AHttpService::BeginPlay() {
     FRequest_Login LoginCredentials;
     LoginCredentials.email = TEXT("asdf@asdf.com");
     LoginCredentials.password = TEXT("asdfasdf");
-    GetPlayer(1);
+    GetPlayer(2);
     //Login(LoginCredentials);
 }
 
@@ -145,7 +145,8 @@ void AHttpService::LoginResponse(FHttpRequestPtr Request, FHttpResponsePtr Respo
 
     //UE_LOG some tests to make sure our code is working.
     UE_LOG(LogTemp, Warning, TEXT("%s"), *Response->GetContentAsString());
-    UE_LOG(LogTemp, Warning, TEXT("Id is: %d"), LoginResponse.data.id);
-    UE_LOG(LogTemp, Warning, TEXT("Name is: %s"), *LoginResponse.data.name);
-    UE_LOG(LogTemp, Warning, TEXT("Score is: %d"), LoginResponse.data.score);
+    UE_LOG(LogTemp, Warning, TEXT("Email is: %s"), *LoginResponse.data.email);
+    UE_LOG(LogTemp, Warning, TEXT("Password is: %s"), *LoginResponse.data.password);
+    UE_LOG(LogTemp, Warning, TEXT("UserID is: %d"), LoginResponse.data.user_id);
+    UE_LOG(LogTemp, Warning, TEXT("Username is: %s"), *LoginResponse.data.username);
 }

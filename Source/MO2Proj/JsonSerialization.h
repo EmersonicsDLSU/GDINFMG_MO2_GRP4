@@ -17,10 +17,10 @@ USTRUCT()
 struct Fdata {
     GENERATED_BODY()
     
-    UPROPERTY() int id;
-    UPROPERTY() FString name;
-    UPROPERTY() int score;
-    UPROPERTY() FString hash;
+    UPROPERTY() FString email;
+    UPROPERTY() FString password;
+    UPROPERTY() int user_id;
+    UPROPERTY() FString username;
     Fdata() {}
 };
 
