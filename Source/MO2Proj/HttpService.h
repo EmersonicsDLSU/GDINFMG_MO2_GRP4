@@ -40,9 +40,12 @@ private:
 protected:
     virtual void BeginPlay() override;
 
+private:
+    ~AHttpService();
+
 public:
-    Fdata currentUser;
-    Fdata tempUser;
+    Fdata* currentUser = nullptr;
+    Fdata* tempUser = nullptr;
     bool correct = false;
     AHttpService();
 
@@ -53,6 +56,11 @@ public:
     //for the Login endpoint
     UFUNCTION(BlueprintCallable)
     void callCheckLogin(FString email, FString password);
-    void CheckLogin(Fdata LoginCredentials);
+    void CheckLogin(Fdata* LoginCredentials);
     void CheckLoginResponse(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful);
+    
+    //for the playerSearch endpoint
+    void callSearchPlayer(FString username);
+    void SearchPlayer(FString username);
+    void GetPlayerResponse(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful);
 };
