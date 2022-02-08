@@ -13,10 +13,9 @@ void AHttpService::BeginPlay() {
     Http = &FHttpModule::Get(); 
     
         // You can uncomment this out for testing.
-    FRequest_Login LoginCredentials;
-    LoginCredentials.email = TEXT("asdf@asdf.com");
-    LoginCredentials.password = TEXT("asdfasdf");
-    GetPlayer(2);
+    
+    //CheckLogin(LoginCredentials);
+    //GetPlayer(1);
     //Login(LoginCredentials);
 }
 
@@ -147,6 +146,51 @@ void AHttpService::LoginResponse(FHttpRequestPtr Request, FHttpResponsePtr Respo
     UE_LOG(LogTemp, Warning, TEXT("%s"), *Response->GetContentAsString());
     UE_LOG(LogTemp, Warning, TEXT("Email is: %s"), *LoginResponse.data.email);
     UE_LOG(LogTemp, Warning, TEXT("Password is: %s"), *LoginResponse.data.password);
-    UE_LOG(LogTemp, Warning, TEXT("UserID is: %d"), LoginResponse.data.user_id);
+    UE_LOG(LogTemp, Warning, TEXT("UserID is: %d"), LoginResponse.data.userID);
     UE_LOG(LogTemp, Warning, TEXT("Username is: %s"), *LoginResponse.data.username);
+}
+
+void AHttpService::callCheckLogin(FString email, FString password)
+{
+    Fdata LoginCredentials;
+    LoginCredentials.email = email;
+    LoginCredentials.password = password;
+    CheckLogin(LoginCredentials);
+}
+
+void AHttpService::CheckLogin(Fdata LoginCredentials)
+{
+    this->tempUser = LoginCredentials;
+    FString sample = "User/";
+    
+    UE_LOG(LogTemp, Warning, TEXT("RequestType is: %s"), *sample);
+    TSharedRef<IHttpRequest> Request = GetRequest(sample);
+    //Setting the method to be executed when the response returns ( or times out / fails )
+    Request->OnProcessRequestComplete().BindUObject(this, &AHttpService::CheckLoginResponse);
+    //And finally actually Sending the request.
+    Send(Request);
+    
+    UE_LOG(LogTemp, Warning, TEXT("RequestType is: %s"), *Request->GetVerb()); 
+}
+
+void AHttpService::CheckLoginResponse(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful) {
+    //Make sure the response is valid before continuing.
+    if (!ResponseIsValid(Response, bWasSuccessful)) return;
+
+    //Get a struct from the Json string
+    FResponse_Login_Arr LoginResponse;
+    GetStructFromJsonString(Response, LoginResponse);
+
+    for(int x = 0; x < LoginResponse.data.Num(); x++)
+    {
+        if(LoginResponse.data[x].email == this->tempUser.email &&
+            LoginResponse.data[x].password == this->tempUser.password)
+        {
+            this->currentUser= this->tempUser;
+            this->correct = true;
+            UE_LOG(LogTemp, Warning, TEXT("Login Successful!")); 
+            return;
+        }
+    }
+    UE_LOG(LogTemp, Warning, TEXT("Login Unsuccessful!: %s : %s"),*this->tempUser.email, *this->tempUser.password ); 
 }

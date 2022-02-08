@@ -19,7 +19,7 @@ struct Fdata {
     
     UPROPERTY() FString email;
     UPROPERTY() FString password;
-    UPROPERTY() int user_id;
+    UPROPERTY() int userID;
     UPROPERTY() FString username;
     Fdata() {}
 };
@@ -27,13 +27,17 @@ struct Fdata {
 USTRUCT()
 struct FResponse_Login {
     GENERATED_BODY()
-        /*
-    UPROPERTY() int id;
-    UPROPERTY() FString name;
-    UPROPERTY() FString hash;
-    */
 
-     UPROPERTY() Fdata data;
+    UPROPERTY() Fdata data;
 
     FResponse_Login() {}
+};
+
+USTRUCT()
+struct FResponse_Login_Arr {
+    GENERATED_BODY()
+
+    UPROPERTY() TArray<Fdata> data;
+
+    FResponse_Login_Arr() {}
 };

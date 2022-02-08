@@ -41,9 +41,18 @@ protected:
     virtual void BeginPlay() override;
 
 public:
+    Fdata currentUser;
+    Fdata tempUser;
+    bool correct = false;
     AHttpService();
 
     void GetPlayer(int ind);
     void Login(FRequest_Login LoginCredentials);
     void LoginResponse(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful);
+
+    //for the Login endpoint
+    UFUNCTION(BlueprintCallable)
+    void callCheckLogin(FString email, FString password);
+    void CheckLogin(Fdata LoginCredentials);
+    void CheckLoginResponse(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful);
 };
