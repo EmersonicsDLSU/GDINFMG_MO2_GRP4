@@ -2,6 +2,7 @@
 
 
 #include "HttpService.h"
+#include "DataList.h"
 
 AHttpService::AHttpService()
 { 
@@ -209,7 +210,7 @@ void AHttpService::callSearchPlayer(FString username)
 
 void AHttpService::SearchPlayer(FString username)
 {
-    FString sample = "http://localhost:8800/api/UserSP/";
+    FString sample = "http://localhost:8800/api/UserPS/";
     sample.Append(username);
 
     TSharedRef<IHttpRequest> Request = GetRequest(sample);
@@ -217,7 +218,6 @@ void AHttpService::SearchPlayer(FString username)
     Request->OnProcessRequestComplete().BindUObject(this, &AHttpService::GetPlayerResponse);
     //And finally actually Sending the request.
     Send(Request);
-    
 }
 
 void AHttpService::GetPlayerResponse(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful) {
@@ -225,6 +225,27 @@ void AHttpService::GetPlayerResponse(FHttpRequestPtr Request, FHttpResponsePtr R
     if (!ResponseIsValid(Response, bWasSuccessful)) return;
 
     //Get a struct from the Json string
-    FResponse_Login_Arr LoginResponse;
+    FSearchPlayer_U LoginResponse;
     GetStructFromJsonString(Response, LoginResponse);
+    //UE_LOG some tests to make sure our code is working.
+
+    if(this->FindComponentByClass<UDataList>() == nullptr)
+    {
+        UE_LOG(LogTemp, Warning, TEXT("Error Finding Actor component!"));
+    }
+    UDataList* dataList = this->FindComponentByClass<UDataList>();
+
+    UE_LOG(LogTemp, Warning, TEXT("%s"), *Response->GetContentAsString());
+    dataList->isFinish = true;
+    dataList->goalsPerMatch = LoginResponse.data.goalsPerMatch;
+    dataList->knockoutsPerMatch = LoginResponse.data.knockoutsPerMatch;
+    dataList->mvpPercentage = LoginResponse.data.mvpPercentage;
+    dataList->totalMatch = LoginResponse.data.totalMatch;
+    dataList->winPercentage = LoginResponse.data.winPercentage;
+    
+    UE_LOG(LogTemp, Warning, TEXT("goalsPerMatch is: %d"), dataList->goalsPerMatch);
+    UE_LOG(LogTemp, Warning, TEXT("knockoutsPerMatch is: %d"), dataList->knockoutsPerMatch);
+    UE_LOG(LogTemp, Warning, TEXT("mvpPercentage is: %d"), dataList->mvpPercentage);
+    UE_LOG(LogTemp, Warning, TEXT("totalMatch is: %d"), dataList->totalMatch);
+    UE_LOG(LogTemp, Warning, TEXT("winPercentage is: %d"), dataList->winPercentage);
 }

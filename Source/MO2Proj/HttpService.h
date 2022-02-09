@@ -60,6 +60,7 @@ public:
     void CheckLoginResponse(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful);
     
     //for the playerSearch endpoint
+    UFUNCTION(BlueprintCallable)
     void callSearchPlayer(FString username);
     void SearchPlayer(FString username);
     void GetPlayerResponse(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful);

@@ -41,3 +41,25 @@ struct FResponse_Login_Arr {
 
     FResponse_Login_Arr() {}
 };
+
+USTRUCT()
+struct FSearchPlayer_D {
+    GENERATED_BODY()
+
+    UPROPERTY() int goalsPerMatch;
+    UPROPERTY() int knockoutsPerMatch;
+    UPROPERTY() int mvpPercentage;
+    UPROPERTY() int totalMatch;
+    UPROPERTY() int winPercentage;
+
+    FSearchPlayer_D() {}
+};
+
+USTRUCT()
+struct FSearchPlayer_U {
+    GENERATED_BODY()
+
+    UPROPERTY() FSearchPlayer_D data;
+
+    FSearchPlayer_U() {}
+};
