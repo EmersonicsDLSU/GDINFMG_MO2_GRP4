@@ -3,6 +3,7 @@
 
 #include "HttpService.h"
 #include "DataList.h"
+#include "MainUIWidget.h"
 
 AHttpService::AHttpService()
 { 
@@ -21,7 +22,7 @@ void AHttpService::BeginPlay() {
     
         // You can uncomment this out for testing.
     
-    callSearchPlayer("sonson");
+    //callSearchPlayer("sonson");
     //CheckLogin(LoginCredentials);
     //GetPlayer(1);
     //Login(LoginCredentials);
@@ -236,7 +237,6 @@ void AHttpService::GetPlayerResponse(FHttpRequestPtr Request, FHttpResponsePtr R
     UDataList* dataList = this->FindComponentByClass<UDataList>();
 
     UE_LOG(LogTemp, Warning, TEXT("%s"), *Response->GetContentAsString());
-    dataList->isFinish = true;
     dataList->goalsPerMatch = LoginResponse.data.goalsPerMatch;
     dataList->knockoutsPerMatch = LoginResponse.data.knockoutsPerMatch;
     dataList->mvpPercentage = LoginResponse.data.mvpPercentage;
@@ -248,4 +248,6 @@ void AHttpService::GetPlayerResponse(FHttpRequestPtr Request, FHttpResponsePtr R
     UE_LOG(LogTemp, Warning, TEXT("mvpPercentage is: %d"), dataList->mvpPercentage);
     UE_LOG(LogTemp, Warning, TEXT("totalMatch is: %d"), dataList->totalMatch);
     UE_LOG(LogTemp, Warning, TEXT("winPercentage is: %d"), dataList->winPercentage);
+
+    this->myWidget->executePlayerSearch();
 }

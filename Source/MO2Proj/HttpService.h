@@ -12,6 +12,7 @@
 #include "HttpService.generated.h"
 
 
+class UMainUIWidget;
 UCLASS(Blueprintable, hideCategories = (Rendering, Replication, Input, Actor, "Actor Tick"))
 class MO2PROJ_API AHttpService : public AActor
 {
@@ -42,8 +43,11 @@ protected:
 
 private:
     ~AHttpService();
+    
 
 public:
+    UPROPERTY(BlueprintReadWrite)
+    UMainUIWidget* myWidget = nullptr;
     Fdata* currentUser = nullptr;
     Fdata* tempUser = nullptr;
     bool correct = false;
@@ -64,4 +68,6 @@ public:
     void callSearchPlayer(FString username);
     void SearchPlayer(FString username);
     void GetPlayerResponse(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful);
+    
+
 };
