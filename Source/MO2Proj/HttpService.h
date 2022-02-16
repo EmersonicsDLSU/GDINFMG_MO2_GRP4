@@ -59,6 +59,8 @@ public:
     void callCheckLogin(FString email, FString password);
     void CheckLogin();
     void CheckLoginResponse(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful);
+    UFUNCTION(BlueprintCallable)
+    void onLogout();
     
     //for the playerSearch endpoint
     UFUNCTION(BlueprintCallable)

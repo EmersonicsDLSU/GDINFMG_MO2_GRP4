@@ -24,6 +24,8 @@ public:
 	//This code is for playersearch
 	UFUNCTION(BlueprintImplementableEvent)
 	void executePlayerSearch();
+	//clean up the yourStats Window
+	void cleanUpYourStatsWindow();
 
 	UPROPERTY()
 	TArray<FSearchPlayer_RU> rowData_PS;

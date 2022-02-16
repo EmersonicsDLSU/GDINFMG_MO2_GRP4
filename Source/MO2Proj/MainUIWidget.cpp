@@ -5,6 +5,7 @@
 
 #include <string>
 
+#include "DataList.h"
 #include "Components/TextBlock.h"
 
 void UMainUIWidget::NativeOnInitialized()
@@ -84,6 +85,36 @@ void UMainUIWidget::NativeOnInitialized()
 	
 }
 
+void UMainUIWidget::cleanUpYourStatsWindow()
+{
+	//cleanup
+	UDataList* dataList = this->htppServiceSc->FindComponentByClass<UDataList>();
+    dataList->playerName = "Player Stats";
+    dataList->goalsPerMatch = 0;
+    dataList->knockoutsPerMatch = 0;
+    dataList->mvpPercentage = 0;
+    dataList->totalMatch = 0;
+    dataList->winPercentage = 0;
+
+	//cleanup the previous data first
+	for (size_t i = 0; i < 5; i++)
+	{
+		this->rowData_PS[i].rowData[0]->SetText(FText::FromString("Default"));
+		this->rowData_PS[i].rowData[1]->SetText(FText::FromString("Default"));
+		this->rowData_PS[i].rowData[2]->SetText(FText::FromString("Default"));
+		this->rowData_PS[i].rowData[3]->SetText(FText::FromString("Default"));
+		this->rowData_PS[i].rowData[4]->SetText(FText::FromString("Default"));
+		this->rowData_PS[i].rowData[5]->SetText(FText::FromString("Default"));
+		this->rowData_PS[i].rowData[6]->SetText(FText::FromString("Default"));
+		this->rowData_PS[i].rowData[7]->SetText(FText::FromString("Default"));
+		this->rowData_PS[i].rowData[8]->SetText(FText::FromString("Default"));
+		this->rowData_PS[i].rowData[9]->SetText(FText::FromString("Default"));
+		this->rowData_PS[i].rowData[10]->SetText(FText::FromString("Default"));
+	}
+	this->executePlayerSearch();
+}
+
+
 void UMainUIWidget::executePlayerSearchRowData(TArray<FSearchPlayer_RowD> data)
 {
 	//cleanup the previous data first
@@ -116,4 +147,5 @@ void UMainUIWidget::executePlayerSearchRowData(TArray<FSearchPlayer_RowD> data)
 		this->rowData_PS[i].rowData[9]->SetText(FText::FromString(data[i].role));
 		this->rowData_PS[i].rowData[10]->SetText(FText::FromString(FString::FromInt(data[i].teamGoals)));
 	}
+	
 }
