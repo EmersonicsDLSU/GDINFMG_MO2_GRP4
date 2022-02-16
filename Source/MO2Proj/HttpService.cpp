@@ -2,10 +2,17 @@
 
 
 #include "HttpService.h"
+#include "DataList.h"
 
 AHttpService::AHttpService()
 { 
     PrimaryActorTick.bCanEverTick = false; 
+}
+
+AHttpService::~AHttpService()
+{ 
+    delete currentUser;
+    delete tempUser;
 }
 
 void AHttpService::BeginPlay() { 
@@ -14,14 +21,15 @@ void AHttpService::BeginPlay() {
     
         // You can uncomment this out for testing.
     
+    callSearchPlayer("sonson");
     //CheckLogin(LoginCredentials);
     //GetPlayer(1);
     //Login(LoginCredentials);
 }
 
-TSharedRef<IHttpRequest> AHttpService::RequestWithRoute(FString Subroute) {
+TSharedRef<IHttpRequest> AHttpService::RequestWithRoute(FString route) {
     auto Request = Http->CreateRequest();
-    Request->SetURL(ApiBaseUrl + Subroute);
+    Request->SetURL(route);
     SetRequestHeaders((TSharedRef<IHttpRequest>&)Request);
     return (TSharedRef<IHttpRequest>&)Request;
 }
@@ -33,8 +41,8 @@ void AHttpService::SetRequestHeaders(TSharedRef<IHttpRequest>& Request) {
 }
 
 //you would put "user/1" as the Subroute. This is for the Subroute
-TSharedRef<IHttpRequest> AHttpService::GetRequest(FString Subroute) {
-    TSharedRef<IHttpRequest> Request = RequestWithRoute(Subroute);
+TSharedRef<IHttpRequest> AHttpService::GetRequest(FString route) {
+    TSharedRef<IHttpRequest> Request = RequestWithRoute(route);
     Request->SetVerb("GET");
     return Request;
 }
@@ -105,7 +113,7 @@ void AHttpService::GetStructFromJsonString(FHttpResponsePtr Response, T& StructO
 
 void AHttpService::GetPlayer(int ind)
 {
-    FString sample = "User/";
+    FString sample = "http://localhost:8800/api/User";
     sample.Append(FString::FromInt(ind));
     
     UE_LOG(LogTemp, Warning, TEXT("RequestType is: %s"), *sample);
@@ -152,16 +160,16 @@ void AHttpService::LoginResponse(FHttpRequestPtr Request, FHttpResponsePtr Respo
 
 void AHttpService::callCheckLogin(FString email, FString password)
 {
-    Fdata LoginCredentials;
-    LoginCredentials.email = email;
-    LoginCredentials.password = password;
+    Fdata* LoginCredentials = new Fdata();
+    LoginCredentials->email = email;
+    LoginCredentials->password = password;
     CheckLogin(LoginCredentials);
 }
 
-void AHttpService::CheckLogin(Fdata LoginCredentials)
+void AHttpService::CheckLogin(Fdata* LoginCredentials)
 {
     this->tempUser = LoginCredentials;
-    FString sample = "User/";
+    FString sample = "http://localhost:8800/api/User/";
     
     UE_LOG(LogTemp, Warning, TEXT("RequestType is: %s"), *sample);
     TSharedRef<IHttpRequest> Request = GetRequest(sample);
@@ -183,14 +191,61 @@ void AHttpService::CheckLoginResponse(FHttpRequestPtr Request, FHttpResponsePtr 
 
     for(int x = 0; x < LoginResponse.data.Num(); x++)
     {
-        if(LoginResponse.data[x].email == this->tempUser.email &&
-            LoginResponse.data[x].password == this->tempUser.password)
+        if((LoginResponse.data[x].email == this->tempUser->email || LoginResponse.data[x].username == this->tempUser->email)&&
+            LoginResponse.data[x].password == this->tempUser->password)
         {
-            this->currentUser= this->tempUser;
+            this->currentUser = &LoginResponse.data[x];
             this->correct = true;
             UE_LOG(LogTemp, Warning, TEXT("Login Successful!")); 
             return;
         }
     }
-    UE_LOG(LogTemp, Warning, TEXT("Login Unsuccessful!: %s : %s"),*this->tempUser.email, *this->tempUser.password ); 
+    UE_LOG(LogTemp, Warning, TEXT("Login Unsuccessful!: %s : %s"),*this->tempUser->email, *this->tempUser->password ); 
+}
+
+void AHttpService::callSearchPlayer(FString username)
+{
+    SearchPlayer(username);
+}
+
+void AHttpService::SearchPlayer(FString username)
+{
+    FString sample = "http://localhost:8800/api/UserPS/";
+    sample.Append(username);
+
+    TSharedRef<IHttpRequest> Request = GetRequest(sample);
+    //Setting the method to be executed when the response returns ( or times out / fails )
+    Request->OnProcessRequestComplete().BindUObject(this, &AHttpService::GetPlayerResponse);
+    //And finally actually Sending the request.
+    Send(Request);
+}
+
+void AHttpService::GetPlayerResponse(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful) {
+    //Make sure the response is valid before continuing.
+    if (!ResponseIsValid(Response, bWasSuccessful)) return;
+
+    //Get a struct from the Json string
+    FSearchPlayer_U LoginResponse;
+    GetStructFromJsonString(Response, LoginResponse);
+    //UE_LOG some tests to make sure our code is working.
+
+    if(this->FindComponentByClass<UDataList>() == nullptr)
+    {
+        UE_LOG(LogTemp, Warning, TEXT("Error Finding Actor component!"));
+    }
+    UDataList* dataList = this->FindComponentByClass<UDataList>();
+
+    UE_LOG(LogTemp, Warning, TEXT("%s"), *Response->GetContentAsString());
+    dataList->isFinish = true;
+    dataList->goalsPerMatch = LoginResponse.data.goalsPerMatch;
+    dataList->knockoutsPerMatch = LoginResponse.data.knockoutsPerMatch;
+    dataList->mvpPercentage = LoginResponse.data.mvpPercentage;
+    dataList->totalMatch = LoginResponse.data.totalMatch;
+    dataList->winPercentage = LoginResponse.data.winPercentage;
+    
+    UE_LOG(LogTemp, Warning, TEXT("goalsPerMatch is: %d"), dataList->goalsPerMatch);
+    UE_LOG(LogTemp, Warning, TEXT("knockoutsPerMatch is: %d"), dataList->knockoutsPerMatch);
+    UE_LOG(LogTemp, Warning, TEXT("mvpPercentage is: %d"), dataList->mvpPercentage);
+    UE_LOG(LogTemp, Warning, TEXT("totalMatch is: %d"), dataList->totalMatch);
+    UE_LOG(LogTemp, Warning, TEXT("winPercentage is: %d"), dataList->winPercentage);
 }
