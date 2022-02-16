@@ -209,6 +209,8 @@ void AHttpService::GetPlayerResponse(FHttpRequestPtr Request, FHttpResponsePtr R
     UE_LOG(LogTemp, Warning, TEXT("mvpPercentage is: %d"), dataList->mvpPercentage);
     UE_LOG(LogTemp, Warning, TEXT("totalMatch is: %d"), dataList->totalMatch);
     UE_LOG(LogTemp, Warning, TEXT("winPercentage is: %d"), dataList->winPercentage);
- 
+    
     this->myWidget->executePlayerSearch();
+    this->myWidget->executePlayerSearchRowData(LoginResponse.rowData);
 }
+

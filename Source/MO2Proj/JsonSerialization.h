@@ -4,6 +4,7 @@
 #pragma once
 #include "JsonSerialization.generated.h"
 
+class UTextBlock;
 //Use for Login Backend
 USTRUCT()
 struct Fdata {
@@ -38,17 +39,17 @@ struct FResponse_Login_Arr {
 USTRUCT()
 struct FSearchPlayer_RowD {
     GENERATED_BODY()
-UPROPERTY() FString playerName;
+    UPROPERTY() int assists;
 UPROPERTY() FString format;
-UPROPERTY() FString pokemonName;
-UPROPERTY() FString role;
-UPROPERTY() int goals;
+UPROPERTY() FString mvp;
 UPROPERTY() int playerGoals;
 UPROPERTY() int playerKnockouts;
-UPROPERTY() int assists;
+UPROPERTY() FString playerName;
 UPROPERTY() int playerPoints;
-UPROPERTY() FString mvp;
+UPROPERTY() FString pokemonName;
 UPROPERTY() FString result;
+UPROPERTY() FString role;
+UPROPERTY() int teamGoals;
  
     FSearchPlayer_RowD() {}
 };
@@ -73,6 +74,17 @@ struct FSearchPlayer_U {
     GENERATED_BODY()
  
     UPROPERTY() FSearchPlayer_D data;
+    UPROPERTY() TArray<FSearchPlayer_RowD> rowData;
  
     FSearchPlayer_U() {}
+};
+
+//Use In Player Search Backend
+USTRUCT()
+struct FSearchPlayer_RU {
+    GENERATED_BODY()
+ 
+    UPROPERTY() TArray<UTextBlock*> rowData;
+ 
+    FSearchPlayer_RU() {}
 };
