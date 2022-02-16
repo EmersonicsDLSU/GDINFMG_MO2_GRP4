@@ -54,6 +54,8 @@ public:
     AHttpService();
 
     void GetPlayer(int ind);
+    void Login(FRequest_Login LoginCredentials);
+    void LoginResponse(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful);
 
     //for the Login endpoint
     UFUNCTION(BlueprintCallable)
