@@ -13,6 +13,7 @@ class MO2PROJ_API UDataList : public UActorComponent
 	GENERATED_BODY()
 
 public:	
+    UPROPERTY(BlueprintReadWrite) FString playerName;
     UPROPERTY(BlueprintReadWrite) int goalsPerMatch;
     UPROPERTY(BlueprintReadWrite) int knockoutsPerMatch;
     UPROPERTY(BlueprintReadWrite) int mvpPercentage;
