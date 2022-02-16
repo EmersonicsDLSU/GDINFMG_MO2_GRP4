@@ -152,6 +152,7 @@ void AHttpService::CheckLoginResponse(FHttpRequestPtr Request, FHttpResponsePtr 
             //store the current login user
             this->currentUser = new Fdata();
             this->currentUser = &LoginResponse.data[x];
+            this->currentUsername = this->currentUser->username;
             this->correct = true;
             this->myWidget->disableLoginButton();
             callSearchPlayer(this->currentUser->username);
@@ -214,3 +215,17 @@ void AHttpService::GetPlayerResponse(FHttpRequestPtr Request, FHttpResponsePtr R
     this->myWidget->executePlayerSearchRowData(LoginResponse.rowData);
 }
 
+bool AHttpService::checkLoginSearchPlayer()
+{
+	if(this->currentUsername.IsEmpty())
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Empty!!!!!!!"));
+        return false;
+	}
+    else
+    {
+		callSearchPlayer(this->currentUsername);
+		return true;
+    }
+    return false;
+}

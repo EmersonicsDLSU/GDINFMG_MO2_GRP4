@@ -47,6 +47,7 @@ private:
 
 public:
     Fdata* currentUser = nullptr;
+    FString currentUsername;
     Fdata* tempUser = nullptr;
     UPROPERTY(BlueprintReadWrite)
     UMainUIWidget* myWidget = nullptr;
@@ -63,6 +64,8 @@ public:
     UFUNCTION(BlueprintCallable)
     void callSearchPlayer(FString username);
     void SearchPlayer(FString username);
+    UFUNCTION(BlueprintCallable)
+    bool checkLoginSearchPlayer();
     void GetPlayerResponse(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful);
     
 

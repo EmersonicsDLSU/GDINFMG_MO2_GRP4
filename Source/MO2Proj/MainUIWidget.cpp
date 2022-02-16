@@ -86,6 +86,22 @@ void UMainUIWidget::NativeOnInitialized()
 
 void UMainUIWidget::executePlayerSearchRowData(TArray<FSearchPlayer_RowD> data)
 {
+	//cleanup the previous data first
+	for (size_t i = 0; i < 5; i++)
+	{
+		this->rowData_PS[i].rowData[0]->SetText(FText::FromString("Default"));
+		this->rowData_PS[i].rowData[1]->SetText(FText::FromString("Default"));
+		this->rowData_PS[i].rowData[2]->SetText(FText::FromString("Default"));
+		this->rowData_PS[i].rowData[3]->SetText(FText::FromString("Default"));
+		this->rowData_PS[i].rowData[4]->SetText(FText::FromString("Default"));
+		this->rowData_PS[i].rowData[5]->SetText(FText::FromString("Default"));
+		this->rowData_PS[i].rowData[6]->SetText(FText::FromString("Default"));
+		this->rowData_PS[i].rowData[7]->SetText(FText::FromString("Default"));
+		this->rowData_PS[i].rowData[8]->SetText(FText::FromString("Default"));
+		this->rowData_PS[i].rowData[9]->SetText(FText::FromString("Default"));
+		this->rowData_PS[i].rowData[10]->SetText(FText::FromString("Default"));
+	}
+	//upload the new batch of data
 	for (size_t i = 0; i < data.Num(); i++)
 	{
 		this->rowData_PS[i].rowData[0]->SetText(FText::FromString(FString::FromInt(data[i].assists)));
