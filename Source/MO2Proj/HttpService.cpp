@@ -3,6 +3,7 @@
 
 #include "HttpService.h"
 #include "DataList.h"
+#include "MainUIWidget.h"
 
 AHttpService::AHttpService()
 { 
@@ -21,7 +22,7 @@ void AHttpService::BeginPlay() {
     
         // You can uncomment this out for testing.
     
-    callSearchPlayer("sonson");
+    //callSearchPlayer("sonson");
     //CheckLogin(LoginCredentials);
     //GetPlayer(1);
     //Login(LoginCredentials);
@@ -119,43 +120,11 @@ void AHttpService::GetPlayer(int ind)
     UE_LOG(LogTemp, Warning, TEXT("RequestType is: %s"), *sample);
     TSharedRef<IHttpRequest> Request = GetRequest(sample);
     //Setting the method to be executed when the response returns ( or times out / fails )
-    Request->OnProcessRequestComplete().BindUObject(this, &AHttpService::LoginResponse);
+    //Request->OnProcessRequestComplete().BindUObject(this, &AHttpService::LoginResponse);
     //And finally actually Sending the request.
     Send(Request);
     
     UE_LOG(LogTemp, Warning, TEXT("RequestType is: %s"), *Request->GetVerb()); 
-}
-
-void AHttpService::Login(FRequest_Login LoginCredentials) {
-    //Creating a Json string from a struct
-    FString ContentJsonString;
-    //jsonbody
-    GetJsonStringFromStruct(LoginCredentials, ContentJsonString);
-
-    //Getting a Post Request Object with the route "user/login"
-    TSharedRef<IHttpRequest> Request = PostRequest("user/login", ContentJsonString);
-
-    //Setting the method to be executed when the response returns ( or times out / fails )
-    Request->OnProcessRequestComplete().BindUObject(this, &AHttpService::LoginResponse);
-
-    //And finally actually Sending the request.
-    Send(Request);
-}
-
-void AHttpService::LoginResponse(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful) {
-    //Make sure the response is valid before continuing.
-    if (!ResponseIsValid(Response, bWasSuccessful)) return;
-
-    //Get a struct from the Json string
-    FResponse_Login LoginResponse;
-    GetStructFromJsonString(Response, LoginResponse);
-
-    //UE_LOG some tests to make sure our code is working.
-    UE_LOG(LogTemp, Warning, TEXT("%s"), *Response->GetContentAsString());
-    UE_LOG(LogTemp, Warning, TEXT("Email is: %s"), *LoginResponse.data.email);
-    UE_LOG(LogTemp, Warning, TEXT("Password is: %s"), *LoginResponse.data.password);
-    UE_LOG(LogTemp, Warning, TEXT("UserID is: %d"), LoginResponse.data.userID);
-    UE_LOG(LogTemp, Warning, TEXT("Username is: %s"), *LoginResponse.data.username);
 }
 
 void AHttpService::callCheckLogin(FString email, FString password)
@@ -196,15 +165,19 @@ void AHttpService::CheckLoginResponse(FHttpRequestPtr Request, FHttpResponsePtr 
         {
             this->currentUser = &LoginResponse.data[x];
             this->correct = true;
-            UE_LOG(LogTemp, Warning, TEXT("Login Successful!")); 
+            UE_LOG(LogTemp, Warning, TEXT("Login Successful!"));
+            this->tempUser = nullptr;
             return;
         }
     }
+    this->tempUser = nullptr;
     UE_LOG(LogTemp, Warning, TEXT("Login Unsuccessful!: %s : %s"),*this->tempUser->email, *this->tempUser->password ); 
 }
 
 void AHttpService::callSearchPlayer(FString username)
 {
+	this->tempUser = new Fdata();
+    this->tempUser->username = username;
     SearchPlayer(username);
 }
 
@@ -236,7 +209,8 @@ void AHttpService::GetPlayerResponse(FHttpRequestPtr Request, FHttpResponsePtr R
     UDataList* dataList = this->FindComponentByClass<UDataList>();
 
     UE_LOG(LogTemp, Warning, TEXT("%s"), *Response->GetContentAsString());
-    dataList->isFinish = true;
+    dataList->playerName = this->tempUser->username;
+    this->tempUser = nullptr;
     dataList->goalsPerMatch = LoginResponse.data.goalsPerMatch;
     dataList->knockoutsPerMatch = LoginResponse.data.knockoutsPerMatch;
     dataList->mvpPercentage = LoginResponse.data.mvpPercentage;
@@ -248,4 +222,6 @@ void AHttpService::GetPlayerResponse(FHttpRequestPtr Request, FHttpResponsePtr R
     UE_LOG(LogTemp, Warning, TEXT("mvpPercentage is: %d"), dataList->mvpPercentage);
     UE_LOG(LogTemp, Warning, TEXT("totalMatch is: %d"), dataList->totalMatch);
     UE_LOG(LogTemp, Warning, TEXT("winPercentage is: %d"), dataList->winPercentage);
+
+    this->myWidget->executePlayerSearch();
 }
