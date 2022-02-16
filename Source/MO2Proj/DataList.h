@@ -12,13 +12,17 @@ class MO2PROJ_API UDataList : public UActorComponent
 {
 	GENERATED_BODY()
 
-public:	
+public:
+	//This Section is for the 'PlayerSearch Backend'
+    UPROPERTY(BlueprintReadWrite) FString playerName;
     UPROPERTY(BlueprintReadWrite) int goalsPerMatch;
     UPROPERTY(BlueprintReadWrite) int knockoutsPerMatch;
     UPROPERTY(BlueprintReadWrite) int mvpPercentage;
     UPROPERTY(BlueprintReadWrite) int totalMatch;
     UPROPERTY(BlueprintReadWrite) int winPercentage;
     UPROPERTY(BlueprintReadWrite) bool isFinish = false;
+	//////////////////////////////////////////////////////
+	
 	// Sets default values for this component's properties
 	UDataList();
 
