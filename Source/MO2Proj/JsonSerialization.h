@@ -81,10 +81,55 @@ struct FSearchPlayer_U {
 
 //Use In Player Search Backend
 USTRUCT()
-struct FSearchPlayer_RU {
+struct FTextBlockArr_RU {
     GENERATED_BODY()
  
     UPROPERTY() TArray<UTextBlock*> rowData;
  
-    FSearchPlayer_RU() {}
+    FTextBlockArr_RU() {}
+};
+ 
+//Use In Community Search Backend
+USTRUCT()
+struct FGetCommunity_RowD {
+    GENERATED_BODY()
+    UPROPERTY() int assists;
+UPROPERTY() FString format;
+UPROPERTY() FString mvp;
+UPROPERTY() int playerGoals;
+UPROPERTY() int playerKnockouts;
+UPROPERTY() FString playerName;
+UPROPERTY() int playerPoints;
+UPROPERTY() FString pokemonName;
+UPROPERTY() FString result;
+UPROPERTY() FString role;
+UPROPERTY() int teamGoals;
+ 
+    FGetCommunity_RowD() {}
+};
+
+//Use In Community Search Backend
+USTRUCT()
+struct FGetCommunity_D {
+    GENERATED_BODY()
+
+    UPROPERTY() int Community_Avg_Goals;
+    UPROPERTY() int Community_Avg_Knockouts;
+    UPROPERTY() int Community_Avg_Points;
+    UPROPERTY() int TotalMatches;
+    UPROPERTY() int TotalRegisteredUsers;
+    UPROPERTY() int community_win_rate;
+
+    FGetCommunity_D() {}
+};
+
+//Use In Community Search Backend
+USTRUCT()
+struct FGetCommunity_U {
+    GENERATED_BODY()
+ 
+    UPROPERTY() FGetCommunity_D data;
+    UPROPERTY() TArray<FGetCommunity_RowD> rowData;
+ 
+    FGetCommunity_U() {}
 };

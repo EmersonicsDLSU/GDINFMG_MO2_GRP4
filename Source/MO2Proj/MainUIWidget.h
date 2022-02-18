@@ -28,7 +28,7 @@ public:
 	void cleanUpYourStatsWindow();
 
 	UPROPERTY()
-	TArray<FSearchPlayer_RU> rowData_PS;
+	TArray<FTextBlockArr_RU> rowData_PS;
 
 	UFUNCTION()
 	void executePlayerSearchRowData(TArray<FSearchPlayer_RowD> data);
@@ -144,6 +144,136 @@ UTextBlock* ResultText_3;
 UPROPERTY(meta = (BindWidget))
 UTextBlock* ResultText_4;
 	/////////////////////////////////
+//CommunityStats
+	UFUNCTION()
+	void executeCommunitySearchRowData(FGetCommunity_U comData);
+	UFUNCTION(BlueprintImplementableEvent)
+	void showCommunityData();
+	UPROPERTY()
+	TArray<FTextBlockArr_RU> rowData_CS;
+	UPROPERTY(meta = (BindWidget))
+UTextBlock* CS_RP;
+UPROPERTY(meta = (BindWidget))
+UTextBlock* CS_TMR;
+UPROPERTY(meta = (BindWidget))
+UTextBlock* CS_CWR;
+UPROPERTY(meta = (BindWidget))
+UTextBlock* CS_CAK;
+UPROPERTY(meta = (BindWidget))
+UTextBlock* CS_CAP;
+UPROPERTY(meta = (BindWidget))
+UTextBlock* CS_CAG;
+UPROPERTY(meta = (BindWidget))
+	UTextBlock* CS_PlayerName_0;
+	UPROPERTY(meta = (BindWidget))
+	UTextBlock* CS_PlayerName_1;
+	UPROPERTY(meta = (BindWidget))
+	UTextBlock* CS_PlayerName_2;
+	UPROPERTY(meta = (BindWidget))
+	UTextBlock* CS_PlayerName_3;
+	UPROPERTY(meta = (BindWidget))
+	UTextBlock* CS_PlayerName_4;
+	UPROPERTY(meta = (BindWidget))
+UTextBlock* CS_FormatText_0;
+UPROPERTY(meta = (BindWidget))
+UTextBlock* CS_FormatText_1;
+UPROPERTY(meta = (BindWidget))
+UTextBlock* CS_FormatText_2;
+UPROPERTY(meta = (BindWidget))
+UTextBlock* CS_FormatText_3;
+UPROPERTY(meta = (BindWidget))
+UTextBlock* CS_FormatText_4;
+UPROPERTY(meta = (BindWidget))
+UTextBlock* CS_PokemonNameText_0;
+UPROPERTY(meta = (BindWidget))
+UTextBlock* CS_PokemonNameText_1;
+UPROPERTY(meta = (BindWidget))
+UTextBlock* CS_PokemonNameText_2;
+UPROPERTY(meta = (BindWidget))
+UTextBlock* CS_PokemonNameText_3;
+UPROPERTY(meta = (BindWidget))
+UTextBlock* CS_PokemonNameText_4;
+UPROPERTY(meta = (BindWidget))
+UTextBlock* CS_RoleText_0;
+UPROPERTY(meta = (BindWidget))
+UTextBlock* CS_RoleText_1;
+UPROPERTY(meta = (BindWidget))
+UTextBlock* CS_RoleText_2;
+UPROPERTY(meta = (BindWidget))
+UTextBlock* CS_RoleText_3;
+UPROPERTY(meta = (BindWidget))
+UTextBlock* CS_RoleText_4;
+UPROPERTY(meta = (BindWidget))
+UTextBlock* CS_GoalsText_0;
+UPROPERTY(meta = (BindWidget))
+UTextBlock* CS_GoalsText_1;
+UPROPERTY(meta = (BindWidget))
+UTextBlock* CS_GoalsText_2;
+UPROPERTY(meta = (BindWidget))
+UTextBlock* CS_GoalsText_3;
+UPROPERTY(meta = (BindWidget))
+UTextBlock* CS_GoalsText_4;
+UPROPERTY(meta = (BindWidget))
+UTextBlock* CS_PlayerGoalsText_0;
+UPROPERTY(meta = (BindWidget))
+UTextBlock* CS_PlayerGoalsText_1;
+UPROPERTY(meta = (BindWidget))
+UTextBlock* CS_PlayerGoalsText_2;
+UPROPERTY(meta = (BindWidget))
+UTextBlock* CS_PlayerGoalsText_3;
+UPROPERTY(meta = (BindWidget))
+UTextBlock* CS_PlayerGoalsText_4;
+UPROPERTY(meta = (BindWidget))
+UTextBlock* CS_PlayerKnockoutsText_0;
+UPROPERTY(meta = (BindWidget))
+UTextBlock* CS_PlayerKnockoutsText_1;
+UPROPERTY(meta = (BindWidget))
+UTextBlock* CS_PlayerKnockoutsText_2;
+UPROPERTY(meta = (BindWidget))
+UTextBlock* CS_PlayerKnockoutsText_3;
+UPROPERTY(meta = (BindWidget))
+UTextBlock* CS_PlayerKnockoutsText_4;
+UPROPERTY(meta = (BindWidget))
+UTextBlock* CS_AssistsText_0;
+UPROPERTY(meta = (BindWidget))
+UTextBlock* CS_AssistsText_1;
+UPROPERTY(meta = (BindWidget))
+UTextBlock* CS_AssistsText_2;
+UPROPERTY(meta = (BindWidget))
+UTextBlock* CS_AssistsText_3;
+UPROPERTY(meta = (BindWidget))
+UTextBlock* CS_AssistsText_4;
+UPROPERTY(meta = (BindWidget))
+UTextBlock* CS_PlayerPointsText_0;
+UPROPERTY(meta = (BindWidget))
+UTextBlock* CS_PlayerPointsText_1;
+UPROPERTY(meta = (BindWidget))
+UTextBlock* CS_PlayerPointsText_2;
+UPROPERTY(meta = (BindWidget))
+UTextBlock* CS_PlayerPointsText_3;
+UPROPERTY(meta = (BindWidget))
+UTextBlock* CS_PlayerPointsText_4;
+UPROPERTY(meta = (BindWidget))
+UTextBlock* CS_MVPText_0;
+UPROPERTY(meta = (BindWidget))
+UTextBlock* CS_MVPText_1;
+UPROPERTY(meta = (BindWidget))
+UTextBlock* CS_MVPText_2;
+UPROPERTY(meta = (BindWidget))
+UTextBlock* CS_MVPText_3;
+UPROPERTY(meta = (BindWidget))
+UTextBlock* CS_MVPText_4;
+UPROPERTY(meta = (BindWidget))
+UTextBlock* CS_ResultText_0;
+UPROPERTY(meta = (BindWidget))
+UTextBlock* CS_ResultText_1;
+UPROPERTY(meta = (BindWidget))
+UTextBlock* CS_ResultText_2;
+UPROPERTY(meta = (BindWidget))
+UTextBlock* CS_ResultText_3;
+UPROPERTY(meta = (BindWidget))
+UTextBlock* CS_ResultText_4;
+	/// ///////////////////////////////////
 
 	UFUNCTION(BlueprintImplementableEvent)
 	void disableLoginButton();

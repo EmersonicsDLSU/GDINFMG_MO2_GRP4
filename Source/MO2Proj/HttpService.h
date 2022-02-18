@@ -70,5 +70,9 @@ public:
     bool checkLoginSearchPlayer();
     void GetPlayerResponse(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful);
     
+    //for the communityResult endpoint
+    UFUNCTION(BlueprintCallable)
+    void CallCommunityResult();
+    void GetCommunityResponse(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful);
 
 };

@@ -237,3 +237,27 @@ void AHttpService::onLogout()
     this->currentUser = nullptr;
 	this->myWidget->cleanUpYourStatsWindow();
 }
+
+void AHttpService::CallCommunityResult()
+{
+    FString sample = "http://localhost:8800/api/UserPS/";
+
+    TSharedRef<IHttpRequest> Request = GetRequest(sample);
+    //Setting the method to be executed when the response returns ( or times out / fails )
+    Request->OnProcessRequestComplete().BindUObject(this, &AHttpService::GetCommunityResponse);
+    //And finally actually Sending the request.
+    Send(Request);
+}
+
+void AHttpService::GetCommunityResponse(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful) {
+    //Make sure the response is valid before continuing.
+    if (!ResponseIsValid(Response, bWasSuccessful)) return;
+
+    //Get a struct from the Json string
+    FGetCommunity_U LoginResponse;
+    GetStructFromJsonString(Response, LoginResponse);
+    //UE_LOG some tests to make sure our code is working.
+
+    this->myWidget->executeCommunitySearchRowData(LoginResponse);
+    this->myWidget->showCommunityData();
+}
