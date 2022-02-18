@@ -274,7 +274,94 @@ UTextBlock* CS_ResultText_3;
 UPROPERTY(meta = (BindWidget))
 UTextBlock* CS_ResultText_4;
 	/// ///////////////////////////////////
-
+//MetaRankingStats
+	UFUNCTION()
+	void executeMetaRankingRowData(FGetMetaRanking_U comData);
+	UFUNCTION(BlueprintImplementableEvent)
+	void showMetaRankingData();
+	UPROPERTY()
+	TArray<FTextBlockArr_RU> rowData_MR;
+UPROPERTY(meta = (BindWidget))
+UTextBlock* PR_PokemonName_0;
+UPROPERTY(meta = (BindWidget))
+UTextBlock* PR_PokemonName_1;
+UPROPERTY(meta = (BindWidget))
+UTextBlock* PR_PokemonName_2;
+UPROPERTY(meta = (BindWidget))
+UTextBlock* PR_PokemonName_3;
+UPROPERTY(meta = (BindWidget))
+UTextBlock* PR_PokemonName_4;
+UPROPERTY(meta = (BindWidget))
+UTextBlock* PR_TotalGames_0;
+UPROPERTY(meta = (BindWidget))
+UTextBlock* PR_TotalGames_1;
+UPROPERTY(meta = (BindWidget))
+UTextBlock* PR_TotalGames_2;
+UPROPERTY(meta = (BindWidget))
+UTextBlock* PR_TotalGames_3;
+UPROPERTY(meta = (BindWidget))
+UTextBlock* PR_TotalGames_4;
+UPROPERTY(meta = (BindWidget))
+UTextBlock* PR_WinRate_0;
+UPROPERTY(meta = (BindWidget))
+UTextBlock* PR_WinRate_1;
+UPROPERTY(meta = (BindWidget))
+UTextBlock* PR_WinRate_2;
+UPROPERTY(meta = (BindWidget))
+UTextBlock* PR_WinRate_3;
+UPROPERTY(meta = (BindWidget))
+UTextBlock* PR_WinRate_4;
+UPROPERTY(meta = (BindWidget))
+UTextBlock* PR_GoalsPG_0;
+UPROPERTY(meta = (BindWidget))
+UTextBlock* PR_GoalsPG_1;
+UPROPERTY(meta = (BindWidget))
+UTextBlock* PR_GoalsPG_2;
+UPROPERTY(meta = (BindWidget))
+UTextBlock* PR_GoalsPG_3;
+UPROPERTY(meta = (BindWidget))
+UTextBlock* PR_GoalsPG_4;
+UPROPERTY(meta = (BindWidget))
+UTextBlock* PR_KnockoutsPG_0;
+UPROPERTY(meta = (BindWidget))
+UTextBlock* PR_KnockoutsPG_1;
+UPROPERTY(meta = (BindWidget))
+UTextBlock* PR_KnockoutsPG_2;
+UPROPERTY(meta = (BindWidget))
+UTextBlock* PR_KnockoutsPG_3;
+UPROPERTY(meta = (BindWidget))
+UTextBlock* PR_KnockoutsPG_4;
+UPROPERTY(meta = (BindWidget))
+UTextBlock* PR_AssistsPG_0;
+UPROPERTY(meta = (BindWidget))
+UTextBlock* PR_AssistsPG_1;
+UPROPERTY(meta = (BindWidget))
+UTextBlock* PR_AssistsPG_2;
+UPROPERTY(meta = (BindWidget))
+UTextBlock* PR_AssistsPG_3;
+UPROPERTY(meta = (BindWidget))
+UTextBlock* PR_AssistsPG_4;
+UPROPERTY(meta = (BindWidget))
+UTextBlock* PR_PointsPG_0;
+UPROPERTY(meta = (BindWidget))
+UTextBlock* PR_PointsPG_1;
+UPROPERTY(meta = (BindWidget))
+UTextBlock* PR_PointsPG_2;
+UPROPERTY(meta = (BindWidget))
+UTextBlock* PR_PointsPG_3;
+UPROPERTY(meta = (BindWidget))
+UTextBlock* PR_PointsPG_4;
+UPROPERTY(meta = (BindWidget))
+UTextBlock* PR_MvpRate_0;
+UPROPERTY(meta = (BindWidget))
+UTextBlock* PR_MvpRate_1;
+UPROPERTY(meta = (BindWidget))
+UTextBlock* PR_MvpRate_2;
+UPROPERTY(meta = (BindWidget))
+UTextBlock* PR_MvpRate_3;
+UPROPERTY(meta = (BindWidget))
+UTextBlock* PR_MvpRate_4;
+	/// ///////////////////////////////////
 	UFUNCTION(BlueprintImplementableEvent)
 	void disableLoginButton();
 	UFUNCTION(BlueprintImplementableEvent)

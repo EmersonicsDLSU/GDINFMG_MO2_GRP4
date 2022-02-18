@@ -75,4 +75,9 @@ public:
     void CallCommunityResult();
     void GetCommunityResponse(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful);
 
+    //for the metaRankingResult endpoint
+    UFUNCTION(BlueprintCallable)
+    void CallMetaRankingResult();
+    void GetMetaRankingResponse(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful);
+
 };

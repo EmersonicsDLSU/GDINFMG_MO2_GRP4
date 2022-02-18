@@ -133,3 +133,29 @@ struct FGetCommunity_U {
  
     FGetCommunity_U() {}
 };
+ 
+//Use In Community Search Backend
+USTRUCT()
+struct FGetMetaRanking_RowD {
+    GENERATED_BODY()
+UPROPERTY() int assists;
+UPROPERTY() FString mvp;
+UPROPERTY() int pokemonGoals;
+UPROPERTY() int pokemonKnockouts;
+UPROPERTY() FString pokemonName;
+UPROPERTY() int pokemonPoints;
+UPROPERTY() int totalGames;
+UPROPERTY() FString winRate;
+ 
+    FGetMetaRanking_RowD() {}
+};
+
+//Use In Community Search Backend
+USTRUCT()
+struct FGetMetaRanking_U {
+    GENERATED_BODY()
+ 
+    UPROPERTY() TArray<FGetMetaRanking_RowD> rowData;
+ 
+    FGetMetaRanking_U() {}
+};

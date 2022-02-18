@@ -148,6 +148,58 @@ void UMainUIWidget::NativeOnInitialized()
 	sample9.rowData.Add(this->CS_RoleText_4);
 	sample9.rowData.Add(this->CS_GoalsText_4);
 	this->rowData_CS.Add(sample9);
+	//////////////////////
+	//For Community stats data row
+	FTextBlockArr_RU sample10;
+	sample10.rowData.Add(this->PR_AssistsPG_0);
+	sample10.rowData.Add(this->PR_MvpRate_0);
+	sample10.rowData.Add(this->PR_GoalsPG_0);
+	sample10.rowData.Add(this->PR_KnockoutsPG_0);
+	sample10.rowData.Add(this->PR_PokemonName_0);
+	sample10.rowData.Add(this->PR_PointsPG_0);
+	sample10.rowData.Add(this->PR_TotalGames_0);
+	sample10.rowData.Add(this->PR_WinRate_0);
+	this->rowData_MR.Add(sample10);
+	FTextBlockArr_RU sample11;
+	sample11.rowData.Add(this->PR_AssistsPG_1);
+	sample11.rowData.Add(this->PR_MvpRate_1);
+	sample11.rowData.Add(this->PR_GoalsPG_1);
+	sample11.rowData.Add(this->PR_KnockoutsPG_1);
+	sample11.rowData.Add(this->PR_PokemonName_1);
+	sample11.rowData.Add(this->PR_PointsPG_1);
+	sample11.rowData.Add(this->PR_TotalGames_1);
+	sample11.rowData.Add(this->PR_WinRate_1);
+	this->rowData_MR.Add(sample11);
+	FTextBlockArr_RU sample12;
+	sample12.rowData.Add(this->PR_AssistsPG_2);
+	sample12.rowData.Add(this->PR_MvpRate_2);
+	sample12.rowData.Add(this->PR_GoalsPG_2);
+	sample12.rowData.Add(this->PR_KnockoutsPG_2);
+	sample12.rowData.Add(this->PR_PokemonName_2);
+	sample12.rowData.Add(this->PR_PointsPG_2);
+	sample12.rowData.Add(this->PR_TotalGames_2);
+	sample12.rowData.Add(this->PR_WinRate_2);
+	this->rowData_MR.Add(sample12);
+	FTextBlockArr_RU sample13;
+	sample13.rowData.Add(this->PR_AssistsPG_3);
+	sample13.rowData.Add(this->PR_MvpRate_3);
+	sample13.rowData.Add(this->PR_GoalsPG_3);
+	sample13.rowData.Add(this->PR_KnockoutsPG_3);
+	sample13.rowData.Add(this->PR_PokemonName_3);
+	sample13.rowData.Add(this->PR_PointsPG_3);
+	sample13.rowData.Add(this->PR_TotalGames_3);
+	sample13.rowData.Add(this->PR_WinRate_3);
+	this->rowData_MR.Add(sample13);
+	FTextBlockArr_RU sample14;
+	sample14.rowData.Add(this->PR_AssistsPG_4);
+	sample14.rowData.Add(this->PR_MvpRate_4);
+	sample14.rowData.Add(this->PR_GoalsPG_4);
+	sample14.rowData.Add(this->PR_KnockoutsPG_4);
+	sample14.rowData.Add(this->PR_PokemonName_4);
+	sample14.rowData.Add(this->PR_PointsPG_4);
+	sample14.rowData.Add(this->PR_TotalGames_4);
+	sample14.rowData.Add(this->PR_WinRate_4);
+	this->rowData_MR.Add(sample14);
 }
 
 void UMainUIWidget::cleanUpYourStatsWindow()
@@ -237,5 +289,22 @@ void UMainUIWidget::executeCommunitySearchRowData(FGetCommunity_U comData)
 		this->rowData_CS[i].rowData[8]->SetText(FText::FromString(comData.rowData[i].result));
 		this->rowData_CS[i].rowData[9]->SetText(FText::FromString(comData.rowData[i].role));
 		this->rowData_CS[i].rowData[10]->SetText(FText::FromString(FString::FromInt(comData.rowData[i].teamGoals)));
+	}
+}
+
+
+void UMainUIWidget::executeMetaRankingRowData(FGetMetaRanking_U comData)
+{
+	//upload the new batch of data
+	for (size_t i = 0; i < comData.rowData.Num() && i < 5; i++)
+	{
+		this->rowData_MR[i].rowData[0]->SetText(FText::FromString(FString::FromInt(comData.rowData[i].assists)));
+		this->rowData_MR[i].rowData[1]->SetText(FText::FromString(comData.rowData[i].mvp));
+		this->rowData_MR[i].rowData[2]->SetText(FText::FromString(FString::FromInt(comData.rowData[i].pokemonGoals)));
+		this->rowData_MR[i].rowData[3]->SetText(FText::FromString(FString::FromInt(comData.rowData[i].pokemonKnockouts)));
+		this->rowData_MR[i].rowData[4]->SetText(FText::FromString(comData.rowData[i].pokemonName));
+		this->rowData_MR[i].rowData[5]->SetText(FText::FromString(FString::FromInt(comData.rowData[i].pokemonPoints)));
+		this->rowData_MR[i].rowData[6]->SetText(FText::FromString(FString::FromInt(comData.rowData[i].totalGames)));
+		this->rowData_MR[i].rowData[7]->SetText(FText::FromString(comData.rowData[i].winRate));
 	}
 }

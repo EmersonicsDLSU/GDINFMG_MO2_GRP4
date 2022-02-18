@@ -240,7 +240,7 @@ void AHttpService::onLogout()
 
 void AHttpService::CallCommunityResult()
 {
-    FString sample = "http://localhost:8800/api/UserPS/";
+    FString sample = "http://localhost:8800/api/UserCS/";
 
     TSharedRef<IHttpRequest> Request = GetRequest(sample);
     //Setting the method to be executed when the response returns ( or times out / fails )
@@ -260,4 +260,28 @@ void AHttpService::GetCommunityResponse(FHttpRequestPtr Request, FHttpResponsePt
 
     this->myWidget->executeCommunitySearchRowData(LoginResponse);
     this->myWidget->showCommunityData();
+}
+
+void AHttpService::CallMetaRankingResult()
+{
+    FString sample = "http://localhost:8800/api/UserMR/";
+
+    TSharedRef<IHttpRequest> Request = GetRequest(sample);
+    //Setting the method to be executed when the response returns ( or times out / fails )
+    Request->OnProcessRequestComplete().BindUObject(this, &AHttpService::GetMetaRankingResponse);
+    //And finally actually Sending the request.
+    Send(Request);
+}
+
+void AHttpService::GetMetaRankingResponse(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful) {
+    //Make sure the response is valid before continuing.
+    if (!ResponseIsValid(Response, bWasSuccessful)) return;
+
+    //Get a struct from the Json string
+    FGetMetaRanking_U LoginResponse;
+    GetStructFromJsonString(Response, LoginResponse);
+    //UE_LOG some tests to make sure our code is working.
+
+    this->myWidget->executeMetaRankingRowData(LoginResponse);
+    this->myWidget->showMetaRankingData();
 }
