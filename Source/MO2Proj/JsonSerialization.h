@@ -159,3 +159,28 @@ struct FGetMetaRanking_U {
  
     FGetMetaRanking_U() {}
 };
+
+//Use In Community Search Backend
+USTRUCT()
+struct FPokemonProfile_RowD {
+    GENERATED_BODY()
+UPROPERTY() int KAAPM;
+UPROPERTY() int mvp;
+UPROPERTY() int pokemonGoals;
+UPROPERTY() FString pokemonName;
+UPROPERTY() int pokemonPoints;
+UPROPERTY() int totalGames;
+UPROPERTY() int winRate;
+ 
+    FPokemonProfile_RowD() {}
+};
+
+//Use In Community Search Backend
+USTRUCT()
+struct FPokemonProfile_U {
+    GENERATED_BODY()
+ 
+    UPROPERTY() FPokemonProfile_RowD rowData;
+ 
+    FPokemonProfile_U() {}
+};

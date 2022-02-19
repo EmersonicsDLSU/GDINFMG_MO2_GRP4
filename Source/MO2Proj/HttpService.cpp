@@ -285,3 +285,50 @@ void AHttpService::GetMetaRankingResponse(FHttpRequestPtr Request, FHttpResponse
     this->myWidget->executeMetaRankingRowData(LoginResponse);
     this->myWidget->showMetaRankingData();
 }
+
+void AHttpService::CallPokemonProfile(FString pokemonName)
+{
+    FString sample = "http://localhost:8800/api/UserPP/";
+    sample.Append(pokemonName);
+    
+    TSharedRef<IHttpRequest> Request = GetRequest(sample);
+    //Setting the method to be executed when the response returns ( or times out / fails )
+    Request->OnProcessRequestComplete().BindUObject(this, &AHttpService::GetPokemonProfileResponse);
+    //And finally actually Sending the request.
+    Send(Request);
+}
+
+void AHttpService::GetPokemonProfileResponse(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful) {
+    //Make sure the response is valid before continuing.
+    if (!ResponseIsValid(Response, bWasSuccessful)) return;
+
+    //Get a struct from the Json string
+    FPokemonProfile_U LoginResponse;
+    GetStructFromJsonString(Response, LoginResponse);
+    //UE_LOG some tests to make sure our code is working.
+	UDataList* dataList = this->FindComponentByClass<UDataList>();
+
+    if(LoginResponse.rowData.pokemonName.Equals("Charizard"))
+    {
+	    dataList->pickedPokemonName = 0;
+    }
+    else if(LoginResponse.rowData.pokemonName.Equals("Cinderace"))
+    {
+	    dataList->pickedPokemonName = 1;
+    }
+    else if(LoginResponse.rowData.pokemonName.Equals("Venusaur"))
+    {
+	    dataList->pickedPokemonName = 2;
+    }
+    else if(LoginResponse.rowData.pokemonName.Equals("Pikachu"))
+    {
+	    dataList->pickedPokemonName = 3;
+    }
+    else if(LoginResponse.rowData.pokemonName.Equals("Blastoise"))
+    {
+	    dataList->pickedPokemonName = 4;
+    }
+
+    this->myWidget->executePokemonProfileRowData(LoginResponse);
+    this->myWidget->showPokemonProfileData();
+}

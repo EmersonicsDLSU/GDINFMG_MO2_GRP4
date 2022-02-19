@@ -279,6 +279,8 @@ UTextBlock* CS_ResultText_4;
 	void executeMetaRankingRowData(FGetMetaRanking_U comData);
 	UFUNCTION(BlueprintImplementableEvent)
 	void showMetaRankingData();
+	UFUNCTION(BlueprintCallable)
+	FString getPokemonNameFromButton(int index);
 	UPROPERTY()
 	TArray<FTextBlockArr_RU> rowData_MR;
 UPROPERTY(meta = (BindWidget))
@@ -361,6 +363,26 @@ UPROPERTY(meta = (BindWidget))
 UTextBlock* PR_MvpRate_3;
 UPROPERTY(meta = (BindWidget))
 UTextBlock* PR_MvpRate_4;
+	/// ///////////////////////////////////
+//PokemonProfile
+	UFUNCTION()
+	void executePokemonProfileRowData(FPokemonProfile_U comData);
+	UFUNCTION(BlueprintImplementableEvent)
+	void showPokemonProfileData();
+UPROPERTY(meta = (BindWidget))
+UTextBlock* PP_PokemonName;
+UPROPERTY(meta = (BindWidget))
+UTextBlock* PP_TotalMatches;
+UPROPERTY(meta = (BindWidget))
+UTextBlock* PP_WinRate;
+UPROPERTY(meta = (BindWidget))
+UTextBlock* PP_GoalsPerMatch;
+UPROPERTY(meta = (BindWidget))
+UTextBlock* PP_KAAPM;
+UPROPERTY(meta = (BindWidget))
+UTextBlock* PP_PPM;
+UPROPERTY(meta = (BindWidget))
+UTextBlock* PP_MVPRate;
 	/// ///////////////////////////////////
 	UFUNCTION(BlueprintImplementableEvent)
 	void disableLoginButton();

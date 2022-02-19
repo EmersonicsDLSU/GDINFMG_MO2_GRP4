@@ -271,7 +271,7 @@ void UMainUIWidget::executeCommunitySearchRowData(FGetCommunity_U comData)
 {
 	this->CS_RP->SetText(FText::FromString(FString::FromInt(comData.data.TotalRegisteredUsers)));
 	this->CS_TMR->SetText(FText::FromString(FString::FromInt(comData.data.TotalMatches)));
-	this->CS_CWR->SetText(FText::FromString(FString::FromInt(comData.data.community_win_rate)));
+	this->CS_CWR->SetText(FText::FromString(FString::FromInt(comData.data.community_win_rate) + "%"));
 	this->CS_CAK->SetText(FText::FromString(FString::FromInt(comData.data.Community_Avg_Knockouts)));
 	this->CS_CAP->SetText(FText::FromString(FString::FromInt(comData.data.Community_Avg_Points)));
 	this->CS_CAG->SetText(FText::FromString(FString::FromInt(comData.data.Community_Avg_Goals)));
@@ -292,7 +292,6 @@ void UMainUIWidget::executeCommunitySearchRowData(FGetCommunity_U comData)
 	}
 }
 
-
 void UMainUIWidget::executeMetaRankingRowData(FGetMetaRanking_U comData)
 {
 	//upload the new batch of data
@@ -307,4 +306,49 @@ void UMainUIWidget::executeMetaRankingRowData(FGetMetaRanking_U comData)
 		this->rowData_MR[i].rowData[6]->SetText(FText::FromString(FString::FromInt(comData.rowData[i].totalGames)));
 		this->rowData_MR[i].rowData[7]->SetText(FText::FromString(comData.rowData[i].winRate));
 	}
+}
+
+FString UMainUIWidget::getPokemonNameFromButton(int index)
+{
+	switch (index)
+	{
+	case 0:
+		{
+			return this->PR_PokemonName_0->GetText().ToString();
+			break;
+		}
+	case 1:
+		{
+			return this->PR_PokemonName_1->GetText().ToString();
+			break;
+		}
+	case 2:
+		{
+			return this->PR_PokemonName_2->GetText().ToString();
+			break;
+		}
+	case 3:
+		{
+			return this->PR_PokemonName_3->GetText().ToString();
+			break;
+		}
+	case 4:
+		{
+			return this->PR_PokemonName_4->GetText().ToString();
+			break;
+		}
+	}
+
+	return "none";
+}
+
+void UMainUIWidget::executePokemonProfileRowData(FPokemonProfile_U comData)
+{
+	this->PP_PokemonName->SetText(FText::FromString(comData.rowData.pokemonName));
+	this->PP_KAAPM->SetText(FText::FromString(FString::FromInt(comData.rowData.KAAPM)));
+	this->PP_MVPRate->SetText(FText::FromString(FString::FromInt(comData.rowData.mvp) + "%"));
+	this->PP_GoalsPerMatch->SetText(FText::FromString(FString::FromInt(comData.rowData.pokemonGoals)));
+	this->PP_PPM->SetText(FText::FromString(FString::FromInt(comData.rowData.pokemonPoints)));
+	this->PP_TotalMatches->SetText(FText::FromString(FString::FromInt(comData.rowData.totalGames)));
+	this->PP_WinRate->SetText(FText::FromString(FString::FromInt(comData.rowData.winRate) + "%"));
 }

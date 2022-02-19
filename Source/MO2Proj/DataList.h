@@ -22,6 +22,9 @@ public:
     UPROPERTY(BlueprintReadWrite) bool isFinish = false;
 	// Sets default values for this component's properties
 	UDataList();
+	//For PokemonProfile
+	
+    UPROPERTY(BlueprintReadWrite) int pickedPokemonName;
 
 protected:
 	// Called when the game starts

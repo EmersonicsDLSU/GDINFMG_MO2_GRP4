@@ -80,4 +80,9 @@ public:
     void CallMetaRankingResult();
     void GetMetaRankingResponse(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful);
 
+    //for the pokemonProfile endpoint
+    UFUNCTION(BlueprintCallable)
+    void CallPokemonProfile(FString pokemonName);
+    void GetPokemonProfileResponse(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful);
+
 };
