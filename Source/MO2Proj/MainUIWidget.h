@@ -8,7 +8,6 @@
 #include "MainUIWidget.generated.h"
 
 class UTextBlock;
-class JsonSerialization;
 /**
  * 
  */
@@ -24,15 +23,6 @@ public:
 	//This code is for playersearch
 	UFUNCTION(BlueprintImplementableEvent)
 	void executePlayerSearch();
-	//clean up the yourStats Window
-	void cleanUpYourStatsWindow();
-
-	UPROPERTY()
-	TArray<FSearchPlayer_RU> rowData_PS;
-
-	UFUNCTION()
-	void executePlayerSearchRowData(TArray<FSearchPlayer_RowD> data);
-
 	UPROPERTY(meta = (BindWidget))
 	UTextBlock* PlayerName_0;
 	UPROPERTY(meta = (BindWidget))
@@ -149,7 +139,5 @@ UTextBlock* ResultText_4;
 	void disableLoginButton();
 	UFUNCTION(BlueprintImplementableEvent)
 	void enableLoginButton();
-
-	protected: void NativeOnInitialized() override; //.h
 
 };

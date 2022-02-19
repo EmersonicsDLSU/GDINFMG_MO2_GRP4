@@ -152,7 +152,6 @@ void AHttpService::CheckLoginResponse(FHttpRequestPtr Request, FHttpResponsePtr 
             //store the current login user
             this->currentUser = new Fdata();
             this->currentUser = &LoginResponse.data[x];
-            this->currentUsername = this->currentUser->username;
             this->correct = true;
             this->myWidget->disableLoginButton();
             callSearchPlayer(this->currentUser->username);
@@ -195,7 +194,7 @@ void AHttpService::GetPlayerResponse(FHttpRequestPtr Request, FHttpResponsePtr R
     {
         UE_LOG(LogTemp, Warning, TEXT("Error Finding Actor component!"));
     }
-	UDataList* dataList = this->FindComponentByClass<UDataList>();
+     UDataList* dataList = this->FindComponentByClass<UDataList>();
  
     UE_LOG(LogTemp, Warning, TEXT("%s"), *Response->GetContentAsString());
     dataList->playerName = this->tempUser->username;
@@ -210,30 +209,6 @@ void AHttpService::GetPlayerResponse(FHttpRequestPtr Request, FHttpResponsePtr R
     UE_LOG(LogTemp, Warning, TEXT("mvpPercentage is: %d"), dataList->mvpPercentage);
     UE_LOG(LogTemp, Warning, TEXT("totalMatch is: %d"), dataList->totalMatch);
     UE_LOG(LogTemp, Warning, TEXT("winPercentage is: %d"), dataList->winPercentage);
-    
+ 
     this->myWidget->executePlayerSearch();
-    this->myWidget->executePlayerSearchRowData(LoginResponse.rowData);
-}
-
-bool AHttpService::checkLoginSearchPlayer()
-{
-	if(this->currentUsername.IsEmpty())
-	{
-		UE_LOG(LogTemp, Warning, TEXT("Empty!!!!!!!"));
-        this->myWidget->cleanUpYourStatsWindow();
-        return false;
-	}
-    else
-    {
-		callSearchPlayer(this->currentUsername);
-		return true;
-    }
-    return false;
-}
-
-void AHttpService::onLogout()
-{
-    this->currentUsername = "\0";
-    this->currentUser = nullptr;
-	this->myWidget->cleanUpYourStatsWindow();
 }
