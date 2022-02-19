@@ -4,7 +4,6 @@
 #pragma once
 #include "JsonSerialization.generated.h"
 
-
 //Use for Login Backend
 USTRUCT()
 struct Fdata {
@@ -16,7 +15,15 @@ struct Fdata {
     UPROPERTY() FString username;
     Fdata() {}
 };
+//Use for Login Backend
+USTRUCT()
+struct FResponse_Login {
+    GENERATED_BODY()
 
+    UPROPERTY() Fdata data;
+
+    FResponse_Login() {}
+};
 //Use for Login Backend
 USTRUCT()
 struct FResponse_Login_Arr {
@@ -26,28 +33,26 @@ struct FResponse_Login_Arr {
 
     FResponse_Login_Arr() {}
 };
-
-
-
+ 
 //Use In Player Search Backend
 USTRUCT()
 struct FSearchPlayer_RowD {
     GENERATED_BODY()
-
-    UPROPERTY() FString playerName;
-	UPROPERTY() FString format;
-	UPROPERTY() FString pokemon;
+UPROPERTY() FString playerName;
+UPROPERTY() FString format;
+UPROPERTY() FString pokemonName;
 UPROPERTY() FString role;
 UPROPERTY() int goals;
 UPROPERTY() int playerGoals;
-UPROPERTY() int playerKnocokouts;
+UPROPERTY() int playerKnockouts;
 UPROPERTY() int assists;
 UPROPERTY() int playerPoints;
 UPROPERTY() FString mvp;
 UPROPERTY() FString result;
-
+ 
     FSearchPlayer_RowD() {}
 };
+
 //Use In Player Search Backend
 USTRUCT()
 struct FSearchPlayer_D {
@@ -61,12 +66,13 @@ struct FSearchPlayer_D {
 
     FSearchPlayer_D() {}
 };
+
 //Use In Player Search Backend
 USTRUCT()
 struct FSearchPlayer_U {
     GENERATED_BODY()
-
+ 
     UPROPERTY() FSearchPlayer_D data;
-
+ 
     FSearchPlayer_U() {}
 };

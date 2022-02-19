@@ -7,36 +7,33 @@
 #include "HttpService.h"
 #include "MainUIWidget.generated.h"
 
+class UTextBlock;
 /**
  * 
  */
-
-class UTextBlock;
 UCLASS()
 class MO2PROJ_API UMainUIWidget : public UUserWidget
 {
 	GENERATED_BODY()
 	
 public:
+
 	UPROPERTY(BlueprintReadWrite)
 	AHttpService* htppServiceSc = nullptr;
-
-	//use for playersearch
+	//This code is for playersearch
 	UFUNCTION(BlueprintImplementableEvent)
 	void executePlayerSearch();
-	UFUNCTION(BlueprintCallable)
-	void executePlayerSearchStats();
 	UPROPERTY(meta = (BindWidget))
-UTextBlock* PlayerName_0;
-UPROPERTY(meta = (BindWidget))
-UTextBlock* PlayerName_1;
-UPROPERTY(meta = (BindWidget))
-UTextBlock* PlayerName_2;
-UPROPERTY(meta = (BindWidget))
-UTextBlock* PlayerName_3;
-UPROPERTY(meta = (BindWidget))
-UTextBlock* PlayerName_4;
-UPROPERTY(meta = (BindWidget))
+	UTextBlock* PlayerName_0;
+	UPROPERTY(meta = (BindWidget))
+	UTextBlock* PlayerName_1;
+	UPROPERTY(meta = (BindWidget))
+	UTextBlock* PlayerName_2;
+	UPROPERTY(meta = (BindWidget))
+	UTextBlock* PlayerName_3;
+	UPROPERTY(meta = (BindWidget))
+	UTextBlock* PlayerName_4;
+	UPROPERTY(meta = (BindWidget))
 UTextBlock* FormatText_0;
 UPROPERTY(meta = (BindWidget))
 UTextBlock* FormatText_1;
@@ -136,9 +133,11 @@ UPROPERTY(meta = (BindWidget))
 UTextBlock* ResultText_3;
 UPROPERTY(meta = (BindWidget))
 UTextBlock* ResultText_4;
+	/////////////////////////////////
 
-	///////////////////////////////////////////////////
-protected:
-	void NativeOnInitialized() override;
+	UFUNCTION(BlueprintImplementableEvent)
+	void disableLoginButton();
+	UFUNCTION(BlueprintImplementableEvent)
+	void enableLoginButton();
 
 };
