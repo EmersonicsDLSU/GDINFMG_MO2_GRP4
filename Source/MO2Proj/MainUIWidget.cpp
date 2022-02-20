@@ -7,6 +7,7 @@
 
 #include "DataList.h"
 #include "Components/TextBlock.h"
+#include "Components/EditableText.h"
 
 void UMainUIWidget::NativeOnInitialized()
 {
@@ -351,4 +352,21 @@ void UMainUIWidget::executePokemonProfileRowData(FPokemonProfile_U comData)
 	this->PP_PPM->SetText(FText::FromString(FString::FromInt(comData.rowData.pokemonPoints)));
 	this->PP_TotalMatches->SetText(FText::FromString(FString::FromInt(comData.rowData.totalGames)));
 	this->PP_WinRate->SetText(FText::FromString(FString::FromInt(comData.rowData.winRate) + "%"));
+}
+
+void UMainUIWidget::checkSignUpFields()
+{
+	//convert the input data to Fdata struct
+	
+	//pass the Fdata to the current signup data
+	this->htppServiceSc->signUpAccountData = new FResponse_Login();
+	this->htppServiceSc->signUpAccountData->data.username = this->SU_Username->GetText().ToString();
+	this->htppServiceSc->signUpAccountData->data.email = this->SU_Email->GetText().ToString();
+	this->htppServiceSc->signUpAccountData->data.password = this->SU_Password->GetText().ToString();
+    UE_LOG(LogTemp, Warning, TEXT("Username is: %s"), *this->htppServiceSc->signUpAccountData->data.username);
+    UE_LOG(LogTemp, Warning, TEXT("Email is: %s"), *this->htppServiceSc->signUpAccountData->data.email);
+    UE_LOG(LogTemp, Warning, TEXT("Password is: %s"), *this->htppServiceSc->signUpAccountData->data.password);
+
+	this->htppServiceSc->CheckSignUpFields();
+
 }

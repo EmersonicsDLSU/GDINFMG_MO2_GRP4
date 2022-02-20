@@ -32,9 +32,8 @@ private:
     void Send(TSharedRef<IHttpRequest>& Request);
 
     bool ResponseIsValid(FHttpResponsePtr Response, bool bWasSuccessful);
-
-    template <typename K>
-    void GetJsonStringFromStruct(K FilledStruct, FString& StringOutput);
+    
+    void GetJsonStringFromStruct(Fdata FilledStruct, FString& StringOutput);
     template <typename T>
     void GetStructFromJsonString(FHttpResponsePtr Response, T& StructOutput);
 
@@ -46,6 +45,7 @@ private:
     
 
 public:
+    FResponse_Login* signUpAccountData = nullptr;
     Fdata* currentUser = nullptr;
     FString currentUsername;
     Fdata* tempUser = nullptr;
@@ -84,5 +84,12 @@ public:
     UFUNCTION(BlueprintCallable)
     void CallPokemonProfile(FString pokemonName);
     void GetPokemonProfileResponse(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful);
+
+    //for the signUp endpoint
+    UFUNCTION(BlueprintCallable)
+    void CallSignUpAccount();
+    void SignUpResponse(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful);
+    void CheckSignUpFields();
+    void CheckSignUpFieldsResponse(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful);
 
 };

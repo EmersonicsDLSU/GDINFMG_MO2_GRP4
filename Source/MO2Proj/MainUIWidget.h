@@ -7,6 +7,7 @@
 #include "HttpService.h"
 #include "MainUIWidget.generated.h"
 
+class UEditableText;
 class UTextBlock;
 class JsonSerialization;
 /**
@@ -383,6 +384,18 @@ UPROPERTY(meta = (BindWidget))
 UTextBlock* PP_PPM;
 UPROPERTY(meta = (BindWidget))
 UTextBlock* PP_MVPRate;
+	/// ///////////////////////////////////
+//PokemonProfile
+	UFUNCTION(BlueprintCallable)
+	void checkSignUpFields();
+	UFUNCTION(BlueprintImplementableEvent)
+	void showSignUpResponse();
+UPROPERTY(meta = (BindWidget))
+UEditableText* SU_Username;
+UPROPERTY(meta = (BindWidget))
+UEditableText* SU_Password;
+UPROPERTY(meta = (BindWidget))
+UEditableText* SU_Email;
 	/// ///////////////////////////////////
 	UFUNCTION(BlueprintImplementableEvent)
 	void disableLoginButton();

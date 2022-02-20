@@ -12,7 +12,6 @@ struct Fdata {
     
     UPROPERTY() FString email;
     UPROPERTY() FString password;
-    UPROPERTY() int userID;
     UPROPERTY() FString username;
     Fdata() {}
 };

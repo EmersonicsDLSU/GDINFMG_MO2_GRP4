@@ -14,8 +14,10 @@ AHttpService::~AHttpService()
 {
     this->currentUser = nullptr;
     this->tempUser = nullptr;
+    this->signUpAccountData = nullptr;
     delete currentUser;
     delete tempUser;
+    delete signUpAccountData;
 }
 
 void AHttpService::BeginPlay() { 
@@ -99,9 +101,8 @@ void AHttpService::SetAuthorizationHash(FString Hash, TSharedRef<IHttpRequest>& 
 * This takes a USTRUCT() Like the one we made before, FRequest_Login and turns it into a properly
 formatted Json string. The variable passed into the StringOutput will be filled with the Json.
 */
-template <typename K>
-void AHttpService::GetJsonStringFromStruct(K FilledStruct, FString& StringOutput) {
-    FJsonObjectConverter::UStructToJsonObjectString(K::StaticStruct(), &FilledStruct, StringOutput, 0, 0);
+void AHttpService::GetJsonStringFromStruct(Fdata FilledStruct, FString& StringOutput) {
+    FJsonObjectConverter::UStructToJsonObjectString(Fdata::StaticStruct(), &FilledStruct, StringOutput, 0, 0);
 }
 //This takes a Json string and fills the StructOutput with the struct created from the Json.
 template <typename T>
@@ -331,4 +332,77 @@ void AHttpService::GetPokemonProfileResponse(FHttpRequestPtr Request, FHttpRespo
 
     this->myWidget->executePokemonProfileRowData(LoginResponse);
     this->myWidget->showPokemonProfileData();
+}
+
+void AHttpService::CallSignUpAccount()
+{
+    FString sample = "http://localhost:8800/api/User";
+    
+    //get the jsonstring
+    FString ContentJsonString;
+    GetJsonStringFromStruct(this->signUpAccountData->data, ContentJsonString);
+    
+    TSharedRef<IHttpRequest> Request = PostRequest(sample, ContentJsonString);
+   
+    //Setting the method to be executed when the response returns ( or times out / fails )
+    Request->OnProcessRequestComplete().BindUObject(this, &AHttpService::SignUpResponse);
+    //And finally actually Sending the request.
+    Send(Request);
+}
+
+void AHttpService::SignUpResponse(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful) {
+    //Make sure the response is valid before continuing.
+    if (!ResponseIsValid(Response, bWasSuccessful)) return;
+    
+    FResponse_Login LoginResponse;
+    GetStructFromJsonString(Response, LoginResponse);
+    
+    UE_LOG(LogTemp, Warning, TEXT("Username is: %s"), *LoginResponse.data.username);
+    UE_LOG(LogTemp, Warning, TEXT("Email is: %s"), *LoginResponse.data.email);
+    UE_LOG(LogTemp, Warning, TEXT("Password is: %s"), *LoginResponse.data.password);
+    UE_LOG(LogTemp, Warning, TEXT("Account Created Success!!"));
+
+    //this->myWidget->showSignUpResponse();
+}
+
+
+void AHttpService::CheckSignUpFields()
+{
+    FString sample = "http://localhost:8800/api/User/";
+    
+    UE_LOG(LogTemp, Warning, TEXT("RequestType is: %s"), *sample);
+    TSharedRef<IHttpRequest> Request = GetRequest(sample);
+    //Setting the method to be executed when the response returns ( or times out / fails )
+    Request->OnProcessRequestComplete().BindUObject(this, &AHttpService::CheckSignUpFieldsResponse);
+    //And finally actually Sending the request.
+    Send(Request);
+    
+    UE_LOG(LogTemp, Warning, TEXT("RequestType is: %s"), *Request->GetVerb()); 
+}
+
+void AHttpService::CheckSignUpFieldsResponse(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful) {
+    //Make sure the response is valid before continuing.
+    if (!ResponseIsValid(Response, bWasSuccessful)) return;
+
+    //Get a struct from the Json string
+    FResponse_Login_Arr LoginResponse;
+    GetStructFromJsonString(Response, LoginResponse);
+    
+    UE_LOG(LogTemp, Warning, TEXT("Username is: %s"), *this->signUpAccountData->data.username);
+    UE_LOG(LogTemp, Warning, TEXT("Email is: %s"), *this->signUpAccountData->data.email);
+    UE_LOG(LogTemp, Warning, TEXT("Password is: %s"), *this->signUpAccountData->data.password);
+
+    for(int x = 0; x < LoginResponse.data.Num(); x++)
+    {
+        //check if there are similar email, similar username
+        if((LoginResponse.data[x].email == this->signUpAccountData->data.email ||
+            LoginResponse.data[x].username == this->signUpAccountData->data.username))
+        {
+            UE_LOG(LogTemp, Warning, TEXT("Email / Username is already taken!"));
+            return;
+        }
+    }
+
+    //if the input data is valid, then call this request
+    this->CallSignUpAccount();
 }
