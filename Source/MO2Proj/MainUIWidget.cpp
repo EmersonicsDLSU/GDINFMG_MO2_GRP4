@@ -356,13 +356,23 @@ void UMainUIWidget::executePokemonProfileRowData(FPokemonProfile_U comData)
 
 void UMainUIWidget::checkSignUpFields()
 {
-	//convert the input data to Fdata struct
+    //check if username is less than a const size or the email is not valid
+	if(this->SU_Username->GetText().ToString().Len() < 5 || 
+		!this->SU_Email->GetText().ToString().Contains("@yahoo.com") &&
+		!this->SU_Email->GetText().ToString().Contains("@gmail.com"))
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Username Size: %d"), this->SU_Username->GetText().ToString().Len());
+		UE_LOG(LogTemp, Warning, TEXT("Email is: %s"), *this->SU_Email->GetText().ToString());
+		UE_LOG(LogTemp, Warning, TEXT("Invalid username or email!"));
+		return;
+	}
 	
 	//pass the Fdata to the current signup data
 	this->htppServiceSc->signUpAccountData = new FResponse_Login();
 	this->htppServiceSc->signUpAccountData->data.username = this->SU_Username->GetText().ToString();
 	this->htppServiceSc->signUpAccountData->data.email = this->SU_Email->GetText().ToString();
 	this->htppServiceSc->signUpAccountData->data.password = this->SU_Password->GetText().ToString();
+
     UE_LOG(LogTemp, Warning, TEXT("Username is: %s"), *this->htppServiceSc->signUpAccountData->data.username);
     UE_LOG(LogTemp, Warning, TEXT("Email is: %s"), *this->htppServiceSc->signUpAccountData->data.email);
     UE_LOG(LogTemp, Warning, TEXT("Password is: %s"), *this->htppServiceSc->signUpAccountData->data.password);

@@ -392,9 +392,9 @@ void AHttpService::CheckSignUpFieldsResponse(FHttpRequestPtr Request, FHttpRespo
     UE_LOG(LogTemp, Warning, TEXT("Email is: %s"), *this->signUpAccountData->data.email);
     UE_LOG(LogTemp, Warning, TEXT("Password is: %s"), *this->signUpAccountData->data.password);
 
+	//check if there are similar email, similar username
     for(int x = 0; x < LoginResponse.data.Num(); x++)
     {
-        //check if there are similar email, similar username
         if((LoginResponse.data[x].email == this->signUpAccountData->data.email ||
             LoginResponse.data[x].username == this->signUpAccountData->data.username))
         {
