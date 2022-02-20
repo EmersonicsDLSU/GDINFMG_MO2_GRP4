@@ -14,8 +14,10 @@ AHttpService::~AHttpService()
 {
     this->currentUser = nullptr;
     this->tempUser = nullptr;
+    this->signUpAccountData = nullptr;
     delete currentUser;
     delete tempUser;
+    delete signUpAccountData;
 }
 
 void AHttpService::BeginPlay() { 
@@ -99,9 +101,8 @@ void AHttpService::SetAuthorizationHash(FString Hash, TSharedRef<IHttpRequest>& 
 * This takes a USTRUCT() Like the one we made before, FRequest_Login and turns it into a properly
 formatted Json string. The variable passed into the StringOutput will be filled with the Json.
 */
-template <typename K>
-void AHttpService::GetJsonStringFromStruct(K FilledStruct, FString& StringOutput) {
-    FJsonObjectConverter::UStructToJsonObjectString(K::StaticStruct(), &FilledStruct, StringOutput, 0, 0);
+void AHttpService::GetJsonStringFromStruct(Fdata FilledStruct, FString& StringOutput) {
+    FJsonObjectConverter::UStructToJsonObjectString(Fdata::StaticStruct(), &FilledStruct, StringOutput, 0, 0);
 }
 //This takes a Json string and fills the StructOutput with the struct created from the Json.
 template <typename T>
@@ -152,6 +153,7 @@ void AHttpService::CheckLoginResponse(FHttpRequestPtr Request, FHttpResponsePtr 
             //store the current login user
             this->currentUser = new Fdata();
             this->currentUser = &LoginResponse.data[x];
+            this->currentUsername = this->currentUser->username;
             this->correct = true;
             this->myWidget->disableLoginButton();
             callSearchPlayer(this->currentUser->username);
@@ -194,7 +196,7 @@ void AHttpService::GetPlayerResponse(FHttpRequestPtr Request, FHttpResponsePtr R
     {
         UE_LOG(LogTemp, Warning, TEXT("Error Finding Actor component!"));
     }
-     UDataList* dataList = this->FindComponentByClass<UDataList>();
+	UDataList* dataList = this->FindComponentByClass<UDataList>();
  
     UE_LOG(LogTemp, Warning, TEXT("%s"), *Response->GetContentAsString());
     dataList->playerName = this->tempUser->username;
@@ -209,6 +211,198 @@ void AHttpService::GetPlayerResponse(FHttpRequestPtr Request, FHttpResponsePtr R
     UE_LOG(LogTemp, Warning, TEXT("mvpPercentage is: %d"), dataList->mvpPercentage);
     UE_LOG(LogTemp, Warning, TEXT("totalMatch is: %d"), dataList->totalMatch);
     UE_LOG(LogTemp, Warning, TEXT("winPercentage is: %d"), dataList->winPercentage);
- 
+    
     this->myWidget->executePlayerSearch();
+    this->myWidget->executePlayerSearchRowData(LoginResponse.rowData);
+}
+
+bool AHttpService::checkLoginSearchPlayer()
+{
+	if(this->currentUsername.IsEmpty())
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Empty!!!!!!!"));
+        this->myWidget->cleanUpYourStatsWindow();
+        return false;
+	}
+    else
+    {
+		callSearchPlayer(this->currentUsername);
+		return true;
+    }
+    return false;
+}
+
+void AHttpService::onLogout()
+{
+    this->currentUsername = "\0";
+    this->currentUser = nullptr;
+	this->myWidget->cleanUpYourStatsWindow();
+}
+
+void AHttpService::CallCommunityResult()
+{
+    FString sample = "http://localhost:8800/api/UserCS/";
+
+    TSharedRef<IHttpRequest> Request = GetRequest(sample);
+    //Setting the method to be executed when the response returns ( or times out / fails )
+    Request->OnProcessRequestComplete().BindUObject(this, &AHttpService::GetCommunityResponse);
+    //And finally actually Sending the request.
+    Send(Request);
+}
+
+void AHttpService::GetCommunityResponse(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful) {
+    //Make sure the response is valid before continuing.
+    if (!ResponseIsValid(Response, bWasSuccessful)) return;
+
+    //Get a struct from the Json string
+    FGetCommunity_U LoginResponse;
+    GetStructFromJsonString(Response, LoginResponse);
+    //UE_LOG some tests to make sure our code is working.
+
+    this->myWidget->executeCommunitySearchRowData(LoginResponse);
+    this->myWidget->showCommunityData();
+}
+
+void AHttpService::CallMetaRankingResult()
+{
+    FString sample = "http://localhost:8800/api/UserMR/";
+
+    TSharedRef<IHttpRequest> Request = GetRequest(sample);
+    //Setting the method to be executed when the response returns ( or times out / fails )
+    Request->OnProcessRequestComplete().BindUObject(this, &AHttpService::GetMetaRankingResponse);
+    //And finally actually Sending the request.
+    Send(Request);
+}
+
+void AHttpService::GetMetaRankingResponse(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful) {
+    //Make sure the response is valid before continuing.
+    if (!ResponseIsValid(Response, bWasSuccessful)) return;
+
+    //Get a struct from the Json string
+    FGetMetaRanking_U LoginResponse;
+    GetStructFromJsonString(Response, LoginResponse);
+    //UE_LOG some tests to make sure our code is working.
+
+    this->myWidget->executeMetaRankingRowData(LoginResponse);
+    this->myWidget->showMetaRankingData();
+}
+
+void AHttpService::CallPokemonProfile(FString pokemonName)
+{
+    FString sample = "http://localhost:8800/api/UserPP/";
+    sample.Append(pokemonName);
+    
+    TSharedRef<IHttpRequest> Request = GetRequest(sample);
+    //Setting the method to be executed when the response returns ( or times out / fails )
+    Request->OnProcessRequestComplete().BindUObject(this, &AHttpService::GetPokemonProfileResponse);
+    //And finally actually Sending the request.
+    Send(Request);
+}
+
+void AHttpService::GetPokemonProfileResponse(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful) {
+    //Make sure the response is valid before continuing.
+    if (!ResponseIsValid(Response, bWasSuccessful)) return;
+
+    //Get a struct from the Json string
+    FPokemonProfile_U LoginResponse;
+    GetStructFromJsonString(Response, LoginResponse);
+    //UE_LOG some tests to make sure our code is working.
+	UDataList* dataList = this->FindComponentByClass<UDataList>();
+
+    if(LoginResponse.rowData.pokemonName.Equals("Charizard"))
+    {
+	    dataList->pickedPokemonName = 0;
+    }
+    else if(LoginResponse.rowData.pokemonName.Equals("Cinderace"))
+    {
+	    dataList->pickedPokemonName = 1;
+    }
+    else if(LoginResponse.rowData.pokemonName.Equals("Venusaur"))
+    {
+	    dataList->pickedPokemonName = 2;
+    }
+    else if(LoginResponse.rowData.pokemonName.Equals("Pikachu"))
+    {
+	    dataList->pickedPokemonName = 3;
+    }
+    else if(LoginResponse.rowData.pokemonName.Equals("Blastoise"))
+    {
+	    dataList->pickedPokemonName = 4;
+    }
+
+    this->myWidget->executePokemonProfileRowData(LoginResponse);
+    this->myWidget->showPokemonProfileData();
+}
+
+void AHttpService::CallSignUpAccount()
+{
+    FString sample = "http://localhost:8800/api/User";
+    
+    //get the jsonstring
+    FString ContentJsonString;
+    GetJsonStringFromStruct(this->signUpAccountData->data, ContentJsonString);
+    
+    TSharedRef<IHttpRequest> Request = PostRequest(sample, ContentJsonString);
+   
+    //Setting the method to be executed when the response returns ( or times out / fails )
+    Request->OnProcessRequestComplete().BindUObject(this, &AHttpService::SignUpResponse);
+    //And finally actually Sending the request.
+    Send(Request);
+}
+
+void AHttpService::SignUpResponse(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful) {
+    //Make sure the response is valid before continuing.
+    if (!ResponseIsValid(Response, bWasSuccessful)) return;
+    
+    FResponse_Login LoginResponse;
+    GetStructFromJsonString(Response, LoginResponse);
+    
+    UE_LOG(LogTemp, Warning, TEXT("Username is: %s"), *LoginResponse.data.username);
+    UE_LOG(LogTemp, Warning, TEXT("Email is: %s"), *LoginResponse.data.email);
+    UE_LOG(LogTemp, Warning, TEXT("Password is: %s"), *LoginResponse.data.password);
+    UE_LOG(LogTemp, Warning, TEXT("Account Created Success!!"));
+
+    //this->myWidget->showSignUpResponse();
+}
+
+
+void AHttpService::CheckSignUpFields()
+{
+    FString sample = "http://localhost:8800/api/User/";
+    
+    UE_LOG(LogTemp, Warning, TEXT("RequestType is: %s"), *sample);
+    TSharedRef<IHttpRequest> Request = GetRequest(sample);
+    //Setting the method to be executed when the response returns ( or times out / fails )
+    Request->OnProcessRequestComplete().BindUObject(this, &AHttpService::CheckSignUpFieldsResponse);
+    //And finally actually Sending the request.
+    Send(Request);
+    
+    UE_LOG(LogTemp, Warning, TEXT("RequestType is: %s"), *Request->GetVerb()); 
+}
+
+void AHttpService::CheckSignUpFieldsResponse(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful) {
+    //Make sure the response is valid before continuing.
+    if (!ResponseIsValid(Response, bWasSuccessful)) return;
+
+    //Get a struct from the Json string
+    FResponse_Login_Arr LoginResponse;
+    GetStructFromJsonString(Response, LoginResponse);
+    
+    UE_LOG(LogTemp, Warning, TEXT("Username is: %s"), *this->signUpAccountData->data.username);
+    UE_LOG(LogTemp, Warning, TEXT("Email is: %s"), *this->signUpAccountData->data.email);
+    UE_LOG(LogTemp, Warning, TEXT("Password is: %s"), *this->signUpAccountData->data.password);
+
+	//check if there are similar email, similar username
+    for(int x = 0; x < LoginResponse.data.Num(); x++)
+    {
+        if((LoginResponse.data[x].email == this->signUpAccountData->data.email ||
+            LoginResponse.data[x].username == this->signUpAccountData->data.username))
+        {
+            UE_LOG(LogTemp, Warning, TEXT("Email / Username is already taken!"));
+            return;
+        }
+    }
+
+    //if the input data is valid, then call this request
+    this->CallSignUpAccount();
 }

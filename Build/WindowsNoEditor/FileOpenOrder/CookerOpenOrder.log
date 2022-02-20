@@ -381,10 +381,10 @@
 "../../../Engine/Plugins/Editor/SpeedTreeImporter/Content/SpeedTree9/SpeedTreeCameraFacing.uexp" 380
 "../../../Engine/Plugins/Editor/SpeedTreeImporter/Content/SpeedTree9/SpeedTreeMaster.uasset" 381
 "../../../Engine/Plugins/Editor/SpeedTreeImporter/Content/SpeedTree9/SpeedTreeMaster.uexp" 382
-"../../../Engine/Content/ArtTools/RenderToTexture/Materials/Debug/M_Emissive_Color.uasset" 383
-"../../../Engine/Content/ArtTools/RenderToTexture/Materials/Debug/M_Emissive_Color.uexp" 384
-"../../../Engine/Content/BasicShapes/Cylinder.uasset" 385
-"../../../Engine/Content/BasicShapes/Cylinder.uexp" 386
+"../../../Engine/Content/BasicShapes/Cylinder.uasset" 383
+"../../../Engine/Content/BasicShapes/Cylinder.uexp" 384
+"../../../Engine/Content/ArtTools/RenderToTexture/Materials/Debug/M_Emissive_Color.uasset" 385
+"../../../Engine/Content/ArtTools/RenderToTexture/Materials/Debug/M_Emissive_Color.uexp" 386
 "../../../Engine/Plugins/Lumin/MagicLeapPassableWorld/Content/MagicLeapARPinInfoActor.uasset" 387
 "../../../Engine/Plugins/Lumin/MagicLeapPassableWorld/Content/MagicLeapARPinInfoActor.uexp" 388
 "../../../Engine/Plugins/Runtime/OpenXR/Content/Devices/GoogleDaydream/MRTexture.uasset" 389
@@ -516,33 +516,48 @@
 "../../../Engine/Plugins/Runtime/Oculus/OculusVR/Content/Meshes/RightTouchController.uexp" 515
 "../../../Engine/Plugins/Runtime/Oculus/OculusVR/Content/Meshes/RightTouchForQuestRiftSController.uasset" 516
 "../../../Engine/Plugins/Runtime/Oculus/OculusVR/Content/Meshes/RightTouchForQuestRiftSController.uexp" 517
-"C:/Users/11929057/Documents/Unreal Projects/MO2Proj/Content/UIElements/Images/Untitled_design__8_.uasset" 518
-"C:/Users/11929057/Documents/Unreal Projects/MO2Proj/Content/UIElements/Images/Untitled_design__8_.uexp" 519
-"C:/Users/11929057/Documents/Unreal Projects/MO2Proj/Content/UIElements/Images/Untitled_design__13_.uasset" 520
-"C:/Users/11929057/Documents/Unreal Projects/MO2Proj/Content/UIElements/Images/Untitled_design__13_.uexp" 521
-"C:/Users/11929057/Documents/Unreal Projects/MO2Proj/Content/UIElements/Images/Untitled_design__12_.uasset" 522
-"C:/Users/11929057/Documents/Unreal Projects/MO2Proj/Content/UIElements/Images/Untitled_design__12_.uexp" 523
-"C:/Users/11929057/Documents/Unreal Projects/MO2Proj/Content/UIElements/Images/Untitled_design__11_.uasset" 524
-"C:/Users/11929057/Documents/Unreal Projects/MO2Proj/Content/UIElements/Images/Untitled_design__11_.uexp" 525
-"C:/Users/11929057/Documents/Unreal Projects/MO2Proj/Content/UIElements/Fonts/Pokemon_X_and_Y.uasset" 526
-"C:/Users/11929057/Documents/Unreal Projects/MO2Proj/Content/UIElements/Fonts/Pokemon_X_and_Y.uexp" 527
-"C:/Users/11929057/Documents/Unreal Projects/MO2Proj/Content/UIElements/Fonts/Pokemon_X_and_Y.ufont" 528
-"C:/Users/11929057/Documents/Unreal Projects/MO2Proj/Content/UIElements/Fonts/Pokemon_X_and_Y_Font.uasset" 529
-"C:/Users/11929057/Documents/Unreal Projects/MO2Proj/Content/UIElements/Fonts/Pokemon_X_and_Y_Font.uexp" 530
-"C:/Users/11929057/Documents/Unreal Projects/MO2Proj/Content/UIElements/Fonts/Pokemon_Hollow.uasset" 531
-"C:/Users/11929057/Documents/Unreal Projects/MO2Proj/Content/UIElements/Fonts/Pokemon_Hollow.uexp" 532
-"C:/Users/11929057/Documents/Unreal Projects/MO2Proj/Content/UIElements/Fonts/Pokemon_Hollow.ufont" 533
-"C:/Users/11929057/Documents/Unreal Projects/MO2Proj/Content/UIElements/Fonts/Pokemon_Hollow_Font.uasset" 534
-"C:/Users/11929057/Documents/Unreal Projects/MO2Proj/Content/UIElements/Fonts/Pokemon_Hollow_Font.uexp" 535
-"C:/Users/11929057/Documents/Unreal Projects/MO2Proj/Content/MainUIWidget_BP.uasset" 536
-"C:/Users/11929057/Documents/Unreal Projects/MO2Proj/Content/MainUIWidget_BP.uexp" 537
-"C:/Users/11929057/Documents/Unreal Projects/MO2Proj/Content/UniteScoutHUD.uasset" 538
-"C:/Users/11929057/Documents/Unreal Projects/MO2Proj/Content/UniteScoutHUD.uexp" 539
-"C:/Users/11929057/Documents/Unreal Projects/MO2Proj/Content/UniteScoutGM.uasset" 540
-"C:/Users/11929057/Documents/Unreal Projects/MO2Proj/Content/UniteScoutGM.uexp" 541
-"C:/Users/11929057/Documents/Unreal Projects/MO2Proj/Content/MainLevel.uexp" 542
-"C:/Users/11929057/Documents/Unreal Projects/MO2Proj/Content/MainLevel.umap" 543
-"../../../Engine/Content/Maps/Entry_BuiltData.uasset" 544
-"../../../Engine/Content/Maps/Entry_BuiltData.uexp" 545
-"../../../Engine/Content/Maps/Entry.uexp" 546
-"../../../Engine/Content/Maps/Entry.umap" 547
+"C:/Users/11929057/Documents/Unreal Projects/MO2Proj/Content/Textures/Venusaur.uasset" 518
+"C:/Users/11929057/Documents/Unreal Projects/MO2Proj/Content/Textures/Venusaur.uexp" 519
+"C:/Users/11929057/Documents/Unreal Projects/MO2Proj/Content/Textures/Pikachu.uasset" 520
+"C:/Users/11929057/Documents/Unreal Projects/MO2Proj/Content/Textures/Pikachu.uexp" 521
+"C:/Users/11929057/Documents/Unreal Projects/MO2Proj/Content/Textures/Cinderace.uasset" 522
+"C:/Users/11929057/Documents/Unreal Projects/MO2Proj/Content/Textures/Cinderace.uexp" 523
+"C:/Users/11929057/Documents/Unreal Projects/MO2Proj/Content/Textures/Charizard.uasset" 524
+"C:/Users/11929057/Documents/Unreal Projects/MO2Proj/Content/Textures/Charizard.uexp" 525
+"C:/Users/11929057/Documents/Unreal Projects/MO2Proj/Content/Textures/Blastoise.uasset" 526
+"C:/Users/11929057/Documents/Unreal Projects/MO2Proj/Content/Textures/Blastoise.uexp" 527
+"C:/Users/11929057/Documents/Unreal Projects/MO2Proj/Content/UIElements/Fonts/Pokemon_Solid.uasset" 528
+"C:/Users/11929057/Documents/Unreal Projects/MO2Proj/Content/UIElements/Fonts/Pokemon_Solid.uexp" 529
+"C:/Users/11929057/Documents/Unreal Projects/MO2Proj/Content/UIElements/Fonts/Pokemon_Solid.ufont" 530
+"C:/Users/11929057/Documents/Unreal Projects/MO2Proj/Content/UIElements/Fonts/Pokemon_Solid_Font.uasset" 531
+"C:/Users/11929057/Documents/Unreal Projects/MO2Proj/Content/UIElements/Fonts/Pokemon_Solid_Font.uexp" 532
+"C:/Users/11929057/Documents/Unreal Projects/MO2Proj/Content/UIElements/Images/Untitled_design__8_.uasset" 533
+"C:/Users/11929057/Documents/Unreal Projects/MO2Proj/Content/UIElements/Images/Untitled_design__8_.uexp" 534
+"C:/Users/11929057/Documents/Unreal Projects/MO2Proj/Content/UIElements/Images/Untitled_design__13_.uasset" 535
+"C:/Users/11929057/Documents/Unreal Projects/MO2Proj/Content/UIElements/Images/Untitled_design__13_.uexp" 536
+"C:/Users/11929057/Documents/Unreal Projects/MO2Proj/Content/UIElements/Images/Untitled_design__12_.uasset" 537
+"C:/Users/11929057/Documents/Unreal Projects/MO2Proj/Content/UIElements/Images/Untitled_design__12_.uexp" 538
+"C:/Users/11929057/Documents/Unreal Projects/MO2Proj/Content/UIElements/Images/Untitled_design__11_.uasset" 539
+"C:/Users/11929057/Documents/Unreal Projects/MO2Proj/Content/UIElements/Images/Untitled_design__11_.uexp" 540
+"C:/Users/11929057/Documents/Unreal Projects/MO2Proj/Content/UIElements/Fonts/Pokemon_X_and_Y.uasset" 541
+"C:/Users/11929057/Documents/Unreal Projects/MO2Proj/Content/UIElements/Fonts/Pokemon_X_and_Y.uexp" 542
+"C:/Users/11929057/Documents/Unreal Projects/MO2Proj/Content/UIElements/Fonts/Pokemon_X_and_Y.ufont" 543
+"C:/Users/11929057/Documents/Unreal Projects/MO2Proj/Content/UIElements/Fonts/Pokemon_X_and_Y_Font.uasset" 544
+"C:/Users/11929057/Documents/Unreal Projects/MO2Proj/Content/UIElements/Fonts/Pokemon_X_and_Y_Font.uexp" 545
+"C:/Users/11929057/Documents/Unreal Projects/MO2Proj/Content/UIElements/Fonts/Pokemon_Hollow.uasset" 546
+"C:/Users/11929057/Documents/Unreal Projects/MO2Proj/Content/UIElements/Fonts/Pokemon_Hollow.uexp" 547
+"C:/Users/11929057/Documents/Unreal Projects/MO2Proj/Content/UIElements/Fonts/Pokemon_Hollow.ufont" 548
+"C:/Users/11929057/Documents/Unreal Projects/MO2Proj/Content/UIElements/Fonts/Pokemon_Hollow_Font.uasset" 549
+"C:/Users/11929057/Documents/Unreal Projects/MO2Proj/Content/UIElements/Fonts/Pokemon_Hollow_Font.uexp" 550
+"C:/Users/11929057/Documents/Unreal Projects/MO2Proj/Content/MainUIWidget_BP.uasset" 551
+"C:/Users/11929057/Documents/Unreal Projects/MO2Proj/Content/MainUIWidget_BP.uexp" 552
+"C:/Users/11929057/Documents/Unreal Projects/MO2Proj/Content/UniteScoutHUD.uasset" 553
+"C:/Users/11929057/Documents/Unreal Projects/MO2Proj/Content/UniteScoutHUD.uexp" 554
+"C:/Users/11929057/Documents/Unreal Projects/MO2Proj/Content/UniteScoutGM.uasset" 555
+"C:/Users/11929057/Documents/Unreal Projects/MO2Proj/Content/UniteScoutGM.uexp" 556
+"C:/Users/11929057/Documents/Unreal Projects/MO2Proj/Content/MainLevel.uexp" 557
+"C:/Users/11929057/Documents/Unreal Projects/MO2Proj/Content/MainLevel.umap" 558
+"../../../Engine/Content/Maps/Entry_BuiltData.uasset" 559
+"../../../Engine/Content/Maps/Entry_BuiltData.uexp" 560
+"../../../Engine/Content/Maps/Entry.uexp" 561
+"../../../Engine/Content/Maps/Entry.umap" 562
