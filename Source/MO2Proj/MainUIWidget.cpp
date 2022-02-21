@@ -400,4 +400,20 @@ void UMainUIWidget::checkAddMatchFields()
 	data->rowData.pokemonName = dataList->pokemonName;
 	data->rowData.result = dataList->result;
 	data->rowData.role = dataList->role;
+
+	
+    UE_LOG(LogTemp, Warning, TEXT("Assists: %d"), data->rowData.assists);
+    UE_LOG(LogTemp, Warning, TEXT("Knockouts: %d"), data->rowData.knockouts);
+    UE_LOG(LogTemp, Warning, TEXT("OpponentGoals: %d"), data->rowData.opponentGoals);
+    UE_LOG(LogTemp, Warning, TEXT("TeamGoals: %d"), data->rowData.teamGoals);
+    UE_LOG(LogTemp, Warning, TEXT("YourGoals: %d"), data->rowData.yourGoals);
+    UE_LOG(LogTemp, Warning, TEXT("YourPoints: %d"), data->rowData.yourPoints);
+    UE_LOG(LogTemp, Warning, TEXT("BattleItem: %d"), data->rowData.battleItem);
+    UE_LOG(LogTemp, Warning, TEXT("Format: %s"), *data->rowData.format);
+    UE_LOG(LogTemp, Warning, TEXT("Lane: %s"), *data->rowData.lane);
+    UE_LOG(LogTemp, Warning, TEXT("PokemonName: %d"), data->rowData.pokemonName);
+    UE_LOG(LogTemp, Warning, TEXT("Result: %s"), *data->rowData.result);
+    UE_LOG(LogTemp, Warning, TEXT("Result: %s"), *data->rowData.role);
+
+	delete data;
 }
