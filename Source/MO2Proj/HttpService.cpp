@@ -160,7 +160,11 @@ void AHttpService::CheckLoginResponse(FHttpRequestPtr Request, FHttpResponsePtr 
             //UE_LOG(LogTemp, Warning, TEXT("Login Successful!: %s, %s, %d, %s"), *this->currentUser->email, *this->currentUser->password,this->currentUser->userID ,*this->currentUser->username);
             return;
         }
+       
     }
+    //if user or pw or email is incorrect
+    this->myWidget.show
+    
 }
 
 void AHttpService::callSearchPlayer(FString username)

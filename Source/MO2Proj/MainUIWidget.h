@@ -401,7 +401,11 @@ UEditableText* SU_Email;
 UFUNCTION(BlueprintCallable)
 	void checkAddMatchFields();
 	UFUNCTION(BlueprintImplementableEvent)
+
 	void showAddMatchResponse();
+	UFUNCTION(BlueprintImplementableEvent)
+	void showIncorrect();
+
 	UPROPERTY(meta = (BindWidget))
 UEditableText* AM_Knockouts;
 UPROPERTY(meta = (BindWidget))
@@ -422,5 +426,8 @@ UEditableText* AM_PlayerPoints;
 	void enableLoginButton();
 
 	protected: void NativeOnInitialized() override; //.h
+
+// for login
+
 
 };
