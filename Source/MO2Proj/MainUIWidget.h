@@ -397,6 +397,25 @@ UEditableText* SU_Password;
 UPROPERTY(meta = (BindWidget))
 UEditableText* SU_Email;
 	/// ///////////////////////////////////
+//AddMatch
+UFUNCTION(BlueprintCallable)
+	void checkAddMatchFields();
+	UFUNCTION(BlueprintImplementableEvent)
+	void showAddMatchResponse();
+	UPROPERTY(meta = (BindWidget))
+UEditableText* AM_Knockouts;
+UPROPERTY(meta = (BindWidget))
+UEditableText* AM_Assists;
+UPROPERTY(meta = (BindWidget))
+UEditableText* AM_TeamGoals;
+UPROPERTY(meta = (BindWidget))
+UEditableText* AM_PlayerGoals;
+UPROPERTY(meta = (BindWidget))
+UEditableText* AM_OpponentGoals;
+UPROPERTY(meta = (BindWidget))
+UEditableText* AM_PlayerPoints;
+	/// ///////////////////////////////////
+	
 	UFUNCTION(BlueprintImplementableEvent)
 	void disableLoginButton();
 	UFUNCTION(BlueprintImplementableEvent)

@@ -12,6 +12,7 @@ struct Fdata {
     
     UPROPERTY() FString email;
     UPROPERTY() FString password;
+    UPROPERTY() int userID;
     UPROPERTY() FString username;
     Fdata() {}
 };
@@ -133,7 +134,7 @@ struct FGetCommunity_U {
     FGetCommunity_U() {}
 };
  
-//Use In Community Search Backend
+//Use In MetaRanking Backend
 USTRUCT()
 struct FGetMetaRanking_RowD {
     GENERATED_BODY()
@@ -149,7 +150,7 @@ UPROPERTY() FString winRate;
     FGetMetaRanking_RowD() {}
 };
 
-//Use In Community Search Backend
+//Use In MetaRanking Backend
 USTRUCT()
 struct FGetMetaRanking_U {
     GENERATED_BODY()
@@ -159,7 +160,7 @@ struct FGetMetaRanking_U {
     FGetMetaRanking_U() {}
 };
 
-//Use In Community Search Backend
+//Use In PokemonProfile Backend
 USTRUCT()
 struct FPokemonProfile_RowD {
     GENERATED_BODY()
@@ -174,7 +175,7 @@ UPROPERTY() int winRate;
     FPokemonProfile_RowD() {}
 };
 
-//Use In Community Search Backend
+//Use In PokemonProfile Backend
 USTRUCT()
 struct FPokemonProfile_U {
     GENERATED_BODY()
@@ -182,4 +183,34 @@ struct FPokemonProfile_U {
     UPROPERTY() FPokemonProfile_RowD rowData;
  
     FPokemonProfile_U() {}
+};
+
+//Use In AddMatch Backend
+USTRUCT()
+struct FAddMatch_RowD {
+    GENERATED_BODY()
+UPROPERTY() int assists; //update in C++
+UPROPERTY() int battleItem; //update in BP
+UPROPERTY() FString format; //update in BP
+UPROPERTY() int knockouts; //update in C++
+UPROPERTY() FString lane; //update in BP
+UPROPERTY() int opponentGoals; //update in C++
+UPROPERTY() int pokemonName; //update in BP
+UPROPERTY() FString result; //update in BP
+UPROPERTY() FString role; //update in BP
+UPROPERTY() int teamGoals; //update in C++
+UPROPERTY() int yourGoals; //update in C++
+UPROPERTY() int yourPoints; //update in C++
+ 
+    FAddMatch_RowD() {}
+};
+
+//Use In AddMatch Backend
+USTRUCT()
+struct FAddMatch_U {
+    GENERATED_BODY()
+ 
+    UPROPERTY() FAddMatch_RowD rowData;
+ 
+    FAddMatch_U () {}
 };

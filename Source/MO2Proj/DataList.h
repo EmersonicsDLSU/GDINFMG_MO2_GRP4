@@ -22,8 +22,22 @@ public:
     UPROPERTY(BlueprintReadWrite) bool isFinish = false;
 	// Sets default values for this component's properties
 	UDataList();
-	//For PokemonProfile
-	
+	//For AddMatch Data
+UPROPERTY(BlueprintReadWrite) int assists;
+UPROPERTY(BlueprintReadWrite) int battleItem;
+UPROPERTY(BlueprintReadWrite) FString format;
+UPROPERTY(BlueprintReadWrite) int knockouts;
+UPROPERTY(BlueprintReadWrite) FString lane;
+UPROPERTY(BlueprintReadWrite) int opponentGoals;
+UPROPERTY(BlueprintReadWrite) int pokemonName;
+UPROPERTY(BlueprintReadWrite) FString result;
+UPROPERTY(BlueprintReadWrite) FString role;
+UPROPERTY(BlueprintReadWrite) int teamGoals;
+UPROPERTY(BlueprintReadWrite) int yourGoals;
+UPROPERTY(BlueprintReadWrite) int yourPoints;
+	///////////////////////////////
+
+	//for PokemonProfile
     UPROPERTY(BlueprintReadWrite) int pickedPokemonName;
 
 protected:

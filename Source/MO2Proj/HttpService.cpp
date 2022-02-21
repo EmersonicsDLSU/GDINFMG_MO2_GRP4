@@ -157,11 +157,10 @@ void AHttpService::CheckLoginResponse(FHttpRequestPtr Request, FHttpResponsePtr 
             this->correct = true;
             this->myWidget->disableLoginButton();
             callSearchPlayer(this->currentUser->username);
-            UE_LOG(LogTemp, Warning, TEXT("Login Successful!"));
+            //UE_LOG(LogTemp, Warning, TEXT("Login Successful!: %s, %s, %d, %s"), *this->currentUser->email, *this->currentUser->password,this->currentUser->userID ,*this->currentUser->username);
             return;
         }
     }
-    UE_LOG(LogTemp, Warning, TEXT("Login Unsuccessful!: %s : %s"),*this->tempUser->email, *this->tempUser->password ); 
 }
 
 void AHttpService::callSearchPlayer(FString username)

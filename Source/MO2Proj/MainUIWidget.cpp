@@ -380,3 +380,24 @@ void UMainUIWidget::checkSignUpFields()
 	this->htppServiceSc->CheckSignUpFields();
 
 }
+
+void UMainUIWidget::checkAddMatchFields()
+{
+	UDataList* dataList = this->htppServiceSc->FindComponentByClass<UDataList>();
+
+	FAddMatch_U* data = new FAddMatch_U();
+	//Updated in C++
+	data->rowData.assists = FCString::Atoi(*this->AM_Assists->GetText().ToString());
+	data->rowData.knockouts = FCString::Atoi(*this->AM_Knockouts->GetText().ToString());
+	data->rowData.opponentGoals = FCString::Atoi(*this->AM_OpponentGoals->GetText().ToString());
+	data->rowData.teamGoals = FCString::Atoi(*this->AM_TeamGoals->GetText().ToString());
+	data->rowData.yourGoals = FCString::Atoi(*this->AM_PlayerGoals->GetText().ToString());
+	data->rowData.yourPoints = FCString::Atoi(*this->AM_PlayerPoints->GetText().ToString());
+	//Updated in BP
+	data->rowData.battleItem = dataList->battleItem;
+	data->rowData.format = dataList->format;
+	data->rowData.lane = dataList->lane;
+	data->rowData.pokemonName = dataList->pokemonName;
+	data->rowData.result = dataList->result;
+	data->rowData.role = dataList->role;
+}
