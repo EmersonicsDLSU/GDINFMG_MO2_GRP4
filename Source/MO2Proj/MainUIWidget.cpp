@@ -356,19 +356,36 @@ void UMainUIWidget::executePokemonProfileRowData(FPokemonProfile_U comData)
 
 void UMainUIWidget::checkSignUpFields()
 {
+    this->resetIncorrect();
     //check if username is less than a const size or the email is not valid
-	if(this->SU_Username->GetText().ToString().Len() < 5 || 
-		!this->SU_Email->GetText().ToString().Contains("@yahoo.com") &&
+	int valid = 1;
+	if(this->SU_Username->GetText().ToString().Len() < 3)
+	{
+		//UE_LOG(LogTemp, Warning, TEXT("Username Size: %d"), this->SU_Username->GetText().ToString().Len());
+		//UE_LOG(LogTemp, Warning, TEXT("Email is: %s"), *this->SU_Email->GetText().ToString());
+		//UE_LOG(LogTemp, Warning, TEXT("Invalid username or email!"));
+		this->showInvalidSUUsername();
+		valid = 0;
+	}
+	if(this->SU_Password->GetText().ToString().Len() < 5)
+	{
+		this->showInvalidPassword();
+		valid = 0;
+	}
+	if(!this->SU_Email->GetText().ToString().Contains("@yahoo.com") &&
 		!this->SU_Email->GetText().ToString().Contains("@gmail.com"))
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Username Size: %d"), this->SU_Username->GetText().ToString().Len());
-		UE_LOG(LogTemp, Warning, TEXT("Email is: %s"), *this->SU_Email->GetText().ToString());
-		UE_LOG(LogTemp, Warning, TEXT("Invalid username or email!"));
+		this->showInvalidSUEmail();
+		valid = 0;
+	}
+	if(!valid)
+	{
+		//terminate the signup Process
 		return;
 	}
-	
+
 	//pass the Fdata to the current signup data
-	this->htppServiceSc->signUpAccountData = new FResponse_Login();
+	this->htppServiceSc->signUpAccountData = new FSUResponse_Login();
 	this->htppServiceSc->signUpAccountData->data.username = this->SU_Username->GetText().ToString();
 	this->htppServiceSc->signUpAccountData->data.email = this->SU_Email->GetText().ToString();
 	this->htppServiceSc->signUpAccountData->data.password = this->SU_Password->GetText().ToString();
@@ -383,37 +400,56 @@ void UMainUIWidget::checkSignUpFields()
 
 void UMainUIWidget::checkAddMatchFields()
 {
+	this->resetIncorrect();
 	UDataList* dataList = this->htppServiceSc->FindComponentByClass<UDataList>();
 
-	FAddMatch_U* data = new FAddMatch_U();
+	FAddMatch_U* dataAM = new FAddMatch_U();
+	FplayerStrategy_U* dataPS = new FplayerStrategy_U();
 	//Updated in C++
-	data->rowData.assists = FCString::Atoi(*this->AM_Assists->GetText().ToString());
-	data->rowData.knockouts = FCString::Atoi(*this->AM_Knockouts->GetText().ToString());
-	data->rowData.opponentGoals = FCString::Atoi(*this->AM_OpponentGoals->GetText().ToString());
-	data->rowData.teamGoals = FCString::Atoi(*this->AM_TeamGoals->GetText().ToString());
-	data->rowData.yourGoals = FCString::Atoi(*this->AM_PlayerGoals->GetText().ToString());
-	data->rowData.yourPoints = FCString::Atoi(*this->AM_PlayerPoints->GetText().ToString());
+	dataAM->data.yourAssists = FCString::Atoi(*this->AM_Assists->GetText().ToString());
+	dataAM->data.yourKnockouts = FCString::Atoi(*this->AM_Knockouts->GetText().ToString());
+	dataAM->data.opposingTeamGoals = FCString::Atoi(*this->AM_OpponentGoals->GetText().ToString());
+	dataAM->data.teamGoals = FCString::Atoi(*this->AM_TeamGoals->GetText().ToString());
+	dataAM->data.userUserid = this->htppServiceSc->currentUserID;
+	dataAM->data.yourGoals = FCString::Atoi(*this->AM_PlayerGoals->GetText().ToString());
+	dataAM->data.yourPoints = FCString::Atoi(*this->AM_PlayerPoints->GetText().ToString());
 	//Updated in BP
-	data->rowData.battleItem = dataList->battleItem;
-	data->rowData.format = dataList->format;
-	data->rowData.lane = dataList->lane;
-	data->rowData.pokemonName = dataList->pokemonName;
-	data->rowData.result = dataList->result;
-	data->rowData.role = dataList->role;
+	dataAM->data.pokemonbuildPokemonbuildid = dataList->battleItem;
+	dataAM->data.mvpResult = dataList->mvpResult;
+	dataPS->data.format = dataList->format;
+	dataPS->data.lane = dataList->lane;
+	dataAM->data.pokemonprofilePokemonprofileid = dataList->pokemonName;
+	dataAM->data.result = dataList->result;
+	dataPS->data.role = dataList->role;
 
+	if(dataList->battleItem == -1 || dataList->mvpResult.IsEmpty() || dataList->format.IsEmpty() ||
+		dataList->lane.IsEmpty() || dataList->pokemonName == -1 || dataList->result.IsEmpty() ||
+		dataList->role.IsEmpty())
+	{
+		this->showInvalidFields();
+		return;
+	}
+
+	this->htppServiceSc->currentAddMatchData = new FAddMatch_U();
+	this->htppServiceSc->currentStrategyData = new FplayerStrategy_U();;
+	this->htppServiceSc->currentAddMatchData = dataAM;
+	this->htppServiceSc->currentStrategyData = dataPS;
 	
-    UE_LOG(LogTemp, Warning, TEXT("Assists: %d"), data->rowData.assists);
-    UE_LOG(LogTemp, Warning, TEXT("Knockouts: %d"), data->rowData.knockouts);
-    UE_LOG(LogTemp, Warning, TEXT("OpponentGoals: %d"), data->rowData.opponentGoals);
-    UE_LOG(LogTemp, Warning, TEXT("TeamGoals: %d"), data->rowData.teamGoals);
-    UE_LOG(LogTemp, Warning, TEXT("YourGoals: %d"), data->rowData.yourGoals);
-    UE_LOG(LogTemp, Warning, TEXT("YourPoints: %d"), data->rowData.yourPoints);
-    UE_LOG(LogTemp, Warning, TEXT("BattleItem: %d"), data->rowData.battleItem);
-    UE_LOG(LogTemp, Warning, TEXT("Format: %s"), *data->rowData.format);
-    UE_LOG(LogTemp, Warning, TEXT("Lane: %s"), *data->rowData.lane);
-    UE_LOG(LogTemp, Warning, TEXT("PokemonName: %d"), data->rowData.pokemonName);
-    UE_LOG(LogTemp, Warning, TEXT("Result: %s"), *data->rowData.result);
-    UE_LOG(LogTemp, Warning, TEXT("Result: %s"), *data->rowData.role);
+    UE_LOG(LogTemp, Warning, TEXT("Assists: %d"), dataAM->data.yourAssists);
+    UE_LOG(LogTemp, Warning, TEXT("Knockouts: %d"), dataAM->data.yourKnockouts);
+    UE_LOG(LogTemp, Warning, TEXT("OpponentGoals: %d"), dataAM->data.opposingTeamGoals);
+    UE_LOG(LogTemp, Warning, TEXT("TeamGoals: %d"), dataAM->data.teamGoals);
+    UE_LOG(LogTemp, Warning, TEXT("YourGoals: %d"), dataAM->data.yourGoals);
+    UE_LOG(LogTemp, Warning, TEXT("YourPoints: %d"), dataAM->data.yourPoints);
+    UE_LOG(LogTemp, Warning, TEXT("BattleItem: %d"), dataAM->data.pokemonbuildPokemonbuildid);
+    UE_LOG(LogTemp, Warning, TEXT("Format: %s"), *dataPS->data.format);
+    UE_LOG(LogTemp, Warning, TEXT("Lane: %s"), *dataPS->data.lane);
+    UE_LOG(LogTemp, Warning, TEXT("PokemonName: %d"), dataAM->data.pokemonprofilePokemonprofileid);
+    UE_LOG(LogTemp, Warning, TEXT("UserID: %d"), dataAM->data.userUserid);
+    UE_LOG(LogTemp, Warning, TEXT("Result: %s"), *dataAM->data.result);
+    UE_LOG(LogTemp, Warning, TEXT("Role: %s"), *dataPS->data.role);
 
-	delete data;
+	//delete dataAM;
+	//create the match; strategy -> matchResult
+	this->htppServiceSc->CallCreatePlayerstrategy();
 }

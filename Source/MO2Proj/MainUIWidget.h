@@ -385,11 +385,23 @@ UTextBlock* PP_PPM;
 UPROPERTY(meta = (BindWidget))
 UTextBlock* PP_MVPRate;
 	/// ///////////////////////////////////
-//PokemonProfile
+//Signup
 	UFUNCTION(BlueprintCallable)
 	void checkSignUpFields();
 	UFUNCTION(BlueprintImplementableEvent)
 	void showSignUpResponse();
+	UFUNCTION(BlueprintImplementableEvent)
+	void resetIncorrect();
+	UFUNCTION(BlueprintImplementableEvent)
+	void showInvalidSUUsername();
+	UFUNCTION(BlueprintImplementableEvent)
+	void showInvalidPassword();
+	UFUNCTION(BlueprintImplementableEvent)
+	void showInvalidSUEmail();
+	UFUNCTION(BlueprintImplementableEvent)
+	void showIncorrectSUUsername();
+	UFUNCTION(BlueprintImplementableEvent)
+	void showIncorrectSUEmail();
 UPROPERTY(meta = (BindWidget))
 UEditableText* SU_Username;
 UPROPERTY(meta = (BindWidget))
@@ -401,11 +413,9 @@ UEditableText* SU_Email;
 UFUNCTION(BlueprintCallable)
 	void checkAddMatchFields();
 	UFUNCTION(BlueprintImplementableEvent)
-
 	void showAddMatchResponse();
 	UFUNCTION(BlueprintImplementableEvent)
-	void showIncorrect();
-
+	void showInvalidFields();
 	UPROPERTY(meta = (BindWidget))
 UEditableText* AM_Knockouts;
 UPROPERTY(meta = (BindWidget))
@@ -419,15 +429,17 @@ UEditableText* AM_OpponentGoals;
 UPROPERTY(meta = (BindWidget))
 UEditableText* AM_PlayerPoints;
 	/// ///////////////////////////////////
-	
+// for login
+	UFUNCTION(BlueprintImplementableEvent)
+	void showIncorrectLogin();
+
+	//////////////////////////
+
 	UFUNCTION(BlueprintImplementableEvent)
 	void disableLoginButton();
 	UFUNCTION(BlueprintImplementableEvent)
 	void enableLoginButton();
 
 	protected: void NativeOnInitialized() override; //.h
-
-// for login
-
-
+			 
 };

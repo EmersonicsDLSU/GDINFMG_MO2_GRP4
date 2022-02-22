@@ -24,17 +24,18 @@ public:
 	UDataList();
 	//For AddMatch Data
 UPROPERTY(BlueprintReadWrite) int assists;
-UPROPERTY(BlueprintReadWrite) int battleItem;
+UPROPERTY(BlueprintReadWrite) int battleItem = -1;
 UPROPERTY(BlueprintReadWrite) FString format;
 UPROPERTY(BlueprintReadWrite) int knockouts;
 UPROPERTY(BlueprintReadWrite) FString lane;
 UPROPERTY(BlueprintReadWrite) int opponentGoals;
-UPROPERTY(BlueprintReadWrite) int pokemonName;
+UPROPERTY(BlueprintReadWrite) int pokemonName = -1;
 UPROPERTY(BlueprintReadWrite) FString result;
 UPROPERTY(BlueprintReadWrite) FString role;
 UPROPERTY(BlueprintReadWrite) int teamGoals;
 UPROPERTY(BlueprintReadWrite) int yourGoals;
 UPROPERTY(BlueprintReadWrite) int yourPoints;
+UPROPERTY(BlueprintReadWrite) FString mvpResult; //update in BP
 	///////////////////////////////
 
 	//for PokemonProfile

@@ -7,6 +7,25 @@
 class UTextBlock;
 //Use for Login Backend
 USTRUCT()
+struct FSUdata {
+    GENERATED_BODY()
+    
+    UPROPERTY() FString email;
+    UPROPERTY() FString password;
+    UPROPERTY() FString username;
+    FSUdata() {}
+};
+//Use for Login Backend
+USTRUCT()
+struct FSUResponse_Login {
+    GENERATED_BODY()
+
+    UPROPERTY() FSUdata data;
+
+    FSUResponse_Login() {}
+};
+//Use for Login Backend
+USTRUCT()
 struct Fdata {
     GENERATED_BODY()
     
@@ -189,17 +208,17 @@ struct FPokemonProfile_U {
 USTRUCT()
 struct FAddMatch_RowD {
     GENERATED_BODY()
-UPROPERTY() int assists; //update in C++
-UPROPERTY() int battleItem; //update in BP
-UPROPERTY() FString format; //update in BP
-UPROPERTY() int knockouts; //update in C++
-UPROPERTY() FString lane; //update in BP
-UPROPERTY() int opponentGoals; //update in C++
-UPROPERTY() int pokemonName; //update in BP
+UPROPERTY() FString mvpResult; //update in BP
+UPROPERTY() int opposingTeamGoals; //update in C++
+UPROPERTY() int playerstrategyStrategyid; //update in BP
+UPROPERTY() int pokemonbuildPokemonbuildid; //update in BP
+UPROPERTY() int pokemonprofilePokemonprofileid; //update in BP
 UPROPERTY() FString result; //update in BP
-UPROPERTY() FString role; //update in BP
 UPROPERTY() int teamGoals; //update in C++
+UPROPERTY() int userUserid; //update in C++
+	UPROPERTY() int yourAssists; //update in C++
 UPROPERTY() int yourGoals; //update in C++
+UPROPERTY() int yourKnockouts; //update in C++
 UPROPERTY() int yourPoints; //update in C++
  
     FAddMatch_RowD() {}
@@ -210,7 +229,48 @@ USTRUCT()
 struct FAddMatch_U {
     GENERATED_BODY()
  
-    UPROPERTY() FAddMatch_RowD rowData;
+    UPROPERTY() FAddMatch_RowD data;
  
     FAddMatch_U () {}
+};
+
+//Use In playerStrategy Backend
+USTRUCT()
+struct FplayerStrategy_RowD {
+    GENERATED_BODY()
+UPROPERTY() FString format; //update in BP
+UPROPERTY() FString lane; //update in BP
+UPROPERTY() FString role; //update in BP
+    FplayerStrategy_RowD () {}
+};
+
+//Use In playerStrategy Backend
+USTRUCT()
+struct FplayerStrategy_Response_RowD {
+    GENERATED_BODY()
+UPROPERTY() FString format; //update in BP
+UPROPERTY() FString lane; //update in BP
+UPROPERTY() FString role; //update in BP
+UPROPERTY() int strategyID; //update in C++
+    FplayerStrategy_Response_RowD () {}
+};
+
+//Use In playerStrategyBackend
+USTRUCT()
+struct FplayerStrategy_U {
+    GENERATED_BODY()
+ 
+    UPROPERTY() FplayerStrategy_RowD data;
+ 
+    FplayerStrategy_U () {}
+};
+
+//Use In playerStrategyBackend
+USTRUCT()
+struct FplayerStrategy_Response_U {
+    GENERATED_BODY()
+ 
+    UPROPERTY() FplayerStrategy_Response_RowD data;
+ 
+    FplayerStrategy_Response_U () {}
 };

@@ -32,8 +32,12 @@ private:
     void Send(TSharedRef<IHttpRequest>& Request);
 
     bool ResponseIsValid(FHttpResponsePtr Response, bool bWasSuccessful);
-    
-    void GetJsonStringFromStruct(Fdata FilledStruct, FString& StringOutput);
+    //for SignUp
+    void GetJsonStringFromStruct(FSUdata FilledStruct, FString& StringOutput);
+	//for addMatch
+	void GetJsonStringFromStruct(FAddMatch_RowD FilledStruct, FString& StringOutput);
+	//for playerstrategy
+	void GetJsonStringFromStruct(FplayerStrategy_RowD FilledStruct, FString& StringOutput);
     template <typename T>
     void GetStructFromJsonString(FHttpResponsePtr Response, T& StructOutput);
 
@@ -45,9 +49,12 @@ private:
     
 
 public:
-    FResponse_Login* signUpAccountData = nullptr;
+    FplayerStrategy_U* currentStrategyData = nullptr;
+    FAddMatch_U* currentAddMatchData = nullptr;
+    FSUResponse_Login* signUpAccountData = nullptr;
     Fdata* currentUser = nullptr;
     FString currentUsername;
+    int currentUserID;
     Fdata* tempUser = nullptr;
     UPROPERTY(BlueprintReadWrite)
     UMainUIWidget* myWidget = nullptr;
@@ -84,6 +91,13 @@ public:
     UFUNCTION(BlueprintCallable)
     void CallPokemonProfile(FString pokemonName);
     void GetPokemonProfileResponse(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful);
+    
+    //for the playerStrategy endpoint
+    void CallCreatePlayerstrategy();
+    void GetCreatePlayerstrategyResponse(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful);
+    //for the addMatch endpoint
+    void CallAddMatch();
+    void GetAddMatchResponse(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful);
 
     //for the signUp endpoint
     UFUNCTION(BlueprintCallable)
