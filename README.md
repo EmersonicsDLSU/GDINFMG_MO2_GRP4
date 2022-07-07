@@ -1,5 +1,13 @@
 # MO2Proj
 
+Team POKEMON UNITE
+Members:
+Emerson Celestial
+Alain Creencia
+Daehan Kim
+Nino Magsano
+Joseph Santos
+
 This program is designed to store match data of users that voluntarily give their match results in the "PokemonUnite" game. The program requires the user to create his/her account that will be recorded in our database after a successful registration. The UI or the frontend was made in Unreal Engine 4, and four our backend we've used the Treefrog framework where the query executions and data transfers are made. We've also used UE4's HTTP libraries that will serve as the medium for our database record to the frontend UI.
 
 ![image](https://user-images.githubusercontent.com/80930588/162355873-ebe254ea-1321-420b-8960-8f2d6578085f.png)
